@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -43,7 +44,7 @@ vector<double> stringToDouble(string numberString)
     return numbers;
 }
 
-void printMedian(vector<double> vector)
+int printMedian(vector<double> vector)
 {
     int size = vector.size();
     sort(vector.begin(), vector.end());
@@ -57,6 +58,8 @@ void printMedian(vector<double> vector)
         double median = vector.at(div);
         cout << "Median: " << median;
     }
+
+    return EXIT_SUCCESS;
 }
 
 int main()

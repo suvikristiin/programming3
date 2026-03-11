@@ -86,7 +86,7 @@ void Sudoku::set(int rowi, int colj, char sudokuc) {
 
 bool Sudoku::check() {
 
-    char founded = '1';
+    char founded = '0';
     bool duplikate = false;
 
     for (size_t row = 0; row < 9; ++row) {
@@ -104,7 +104,7 @@ bool Sudoku::check() {
             if (found[index]) {
                 duplikate = true;
 
-                if (founded < c) {
+                if (founded > c or founded == '0') {
                     founded = c;
                 }
 
@@ -123,6 +123,7 @@ bool Sudoku::check() {
     for (size_t col = 0; col < 9; ++col) {
         bool found[9] = {false};
         bool duplikate = false;
+        char founded = '0';
 
 
         for (size_t row = 0; row < 9; ++row) {
@@ -137,7 +138,7 @@ bool Sudoku::check() {
             if (found[index]) {
                 duplikate = true;
 
-                if (founded < c) {
+                if (founded > c or founded == '0') {
                     founded = c;
                 }
             }
@@ -155,7 +156,7 @@ bool Sudoku::check() {
     for (size_t blockRow = 0; blockRow < 9; blockRow += 3) {
 
         bool duplikate = false;
-        char founded = '1';
+        char founded = '0';
 
         for (size_t blockCol = 0; blockCol < 9; blockCol += 3) {
             bool found[9] = {false};
@@ -173,7 +174,7 @@ bool Sudoku::check() {
                     if (found[index]) {
                         duplikate = true;
 
-                        if (founded < c) {
+                        if (founded > c or founded == '0') {
                             founded = c;
                         }
                     }

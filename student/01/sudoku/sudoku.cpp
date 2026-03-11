@@ -44,7 +44,6 @@ void Sudoku::print() {
 void Sudoku::set(int rowi, int colj, char sudokuc) {
 
     int i = 0;
-    int j = 0;
 
     if (rowi < 0 || rowi>8 || colj < 0 || colj>8) {
         cout << "Trying to access illegal cell (" << rowi << ", " <<  colj << ")!"<<endl;
@@ -52,12 +51,12 @@ void Sudoku::set(int rowi, int colj, char sudokuc) {
 
     for (vector<char> row : sudokuVector) {
 
-        j = 0;
         try {
 
             if (i == rowi) {
 
-                for (char c : row) {
+                int rowSize = sudokuVector.at(i).size();
+                for (int j = 0; j < rowSize; j++) {
 
                     if (j == colj) {
 
@@ -71,7 +70,6 @@ void Sudoku::set(int rowi, int colj, char sudokuc) {
 
                     }
 
-                    j++;
                 }
             }
 

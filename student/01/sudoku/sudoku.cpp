@@ -86,6 +86,9 @@ void Sudoku::set(int rowi, int colj, char sudokuc) {
 
 bool Sudoku::check() {
 
+    char founded = '1';
+    bool duplikate = false;
+
     for (size_t row = 0; row < 9; ++row) {
         bool found[9] = {false};
 
@@ -99,17 +102,28 @@ bool Sudoku::check() {
             int index = c - '1';
 
             if (found[index]) {
-                cout << "Row " << row <<  " has multiple " << c << "'s!"<<endl;
-                return false;
+                duplikate = true;
+
+                if (founded < c) {
+                    founded = c;
+                }
+
             }
 
             found[index] = true;
+        }
+
+        if (duplikate) {
+            cout << "Row " << row <<  " has multiple " << founded << "'s!"<<endl;
+            return false;
         }
     }
 
 
     for (size_t col = 0; col < 9; ++col) {
         bool found[9] = {false};
+        bool duplikate = false;
+
 
         for (size_t row = 0; row < 9; ++row) {
             char c = sudokuVector[row][col];
@@ -121,16 +135,28 @@ bool Sudoku::check() {
             int index = c - '1';
 
             if (found[index]) {
-                cout << "Column " << col <<  " has multiple " << c << "'s!"<<endl;
-                return false;
+                duplikate = true;
+
+                if (founded < c) {
+                    founded = c;
+                }
             }
 
             found[index] = true;
+        }
+
+        if (duplikate) {
+            cout << "Column " << col <<  " has multiple " << founded << "'s!"<<endl;
+            return false;
         }
     }
 
 
     for (size_t blockRow = 0; blockRow < 9; blockRow += 3) {
+
+        bool duplikate = false;
+        char founded = '1';
+
         for (size_t blockCol = 0; blockCol < 9; blockCol += 3) {
             bool found[9] = {false};
 
@@ -145,12 +171,20 @@ bool Sudoku::check() {
                     int index = c - '1';
 
                     if (found[index]) {
-                        cout << "Block at (" << blockRow <<", " << blockCol << ") has multiple " << c <<"'s!"<<endl;
-                        return false;
+                        duplikate = true;
+
+                        if (founded < c) {
+                            founded = c;
+                        }
                     }
 
                     found[index] = true;
                 }
+            }
+
+            if (duplikate) {
+                cout << "Block at (" << blockRow <<", " << blockCol << ") has multiple " << founded <<"'s!"<<endl;
+                return false;
             }
         }
     }

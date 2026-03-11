@@ -36,9 +36,7 @@ void Sudoku::print() {
         }
         i = 0;
         j++;
-
     }
-
 }
 
 void Sudoku::set(int rowi, int colj, char sudokuc) {
@@ -54,8 +52,8 @@ void Sudoku::set(int rowi, int colj, char sudokuc) {
         try {
 
             if (i == rowi) {
-
                 int rowSize = sudokuVector.at(i).size();
+
                 for (int j = 0; j < rowSize; j++) {
 
                     if (j == colj) {
@@ -67,20 +65,14 @@ void Sudoku::set(int rowi, int colj, char sudokuc) {
                             cout << "Trying to set illegal character " << sudokuc
                                  << " to (" << i << ", " << j << ")!" << endl;
                         }
-
                     }
-
                 }
             }
-
             i++;
-
         } catch (...) {
 
             cout << "error"<<endl;
         }
-
-
     }
 }
 
@@ -107,7 +99,6 @@ bool Sudoku::check() {
                 if (founded > c or founded == '0') {
                     founded = c;
                 }
-
             }
 
             found[index] = true;
@@ -124,7 +115,6 @@ bool Sudoku::check() {
         bool found[9] = {false};
         bool duplikate = false;
         char founded = '0';
-
 
         for (size_t row = 0; row < 9; ++row) {
             char c = sudokuVector[row][col];
@@ -154,7 +144,6 @@ bool Sudoku::check() {
 
 
     for (size_t blockRow = 0; blockRow < 9; blockRow += 3) {
-
         bool duplikate = false;
         char founded = '0';
 
@@ -162,6 +151,7 @@ bool Sudoku::check() {
             bool found[9] = {false};
 
             for (size_t row = blockRow; row < blockRow + 3; ++row) {
+
                 for (size_t col = blockCol; col < blockCol + 3; ++col) {
                     char c = sudokuVector[row][col];
 

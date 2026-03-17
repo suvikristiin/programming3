@@ -17,6 +17,7 @@
     test_list.insert_in_numerical_order(9);  test_list.print();
     test_list.insert_in_numerical_order(1);  test_list.print();
     test_list.insert_in_numerical_order(9);  test_list.print();
+    test_list.remove_duplicates();
     test_list.print_reverse();
     test_list.remove_value(1);  test_list.print();
     test_list.remove_value(9);  test_list.print();

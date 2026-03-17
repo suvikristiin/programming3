@@ -116,6 +116,66 @@ bool TwoWayList::remove_value(int removable_item) {
 
 void TwoWayList::remove_duplicates()
 {
+    //print();
+
+    if ( length() == 0 ) {
+        return;
+    }
+
+    shared_ptr<List_item> removable_ptr = first_;
+    bool loop = true;
+
+    while ( loop ) {
+        if ( removable_ptr->next == nullptr ) {
+
+            loop = false;  // Last element processed.
+
+        } else if( removable_ptr->data == removable_ptr->next->data ) {
+
+            if ( removable_ptr == first_ ) {
+
+                first_ = first_->next;
+                first_->prev.lock().reset();
+
+                //removable_ptr->next = nullptr;
+                //removable_ptr->prev.lock().reset();
+
+
+
+                // Removable element is the last element of the list.
+            } else if ( removable_ptr == last_.lock()) {
+                last_ = last_.lock()->prev;
+                last_.lock()->next = nullptr;
+
+
+
+                // Removable element lies between the first and the last element.
+            } else {
+
+
+                removable_ptr->prev.lock()->next = removable_ptr->next;
+                removable_ptr->next->prev = removable_ptr->prev;
+
+
+            }
+
+            --count_;
+            loop = true;        // Removable value found.
+
+        } else {
+
+            //removable_ptr = removable_ptr->next;
+            loop = true;
+        }
+
+
+
+        removable_ptr = removable_ptr->next;
+
+    }
+
+    cout << "Testi: ";
+    print();
 
 }
 

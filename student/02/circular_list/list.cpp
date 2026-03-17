@@ -16,19 +16,18 @@ List::~List()
 
 void List::insert_at_the_beginning(int i)
 {
-
     shared_ptr<List_item> new_item = make_shared<List_item>(List_item{i, first_});
     first_ = new_item;
 
     if (last_ == nullptr) {
         last_ = new_item;
     }
+
 }
 
 void List::insert_at_the_end(int i)
 {
     shared_ptr<List_item> new_item = make_shared<List_item>(List_item{i, nullptr});
-
 
     if (last_ == nullptr) {
         first_ = new_item;
@@ -48,8 +47,6 @@ void List::remove_first()
     }
 
     first_ = first_->next;
-
-
 }
 
 void List::remove_last()
@@ -75,18 +72,11 @@ void List::remove_last()
         }
     }
 
-
-
-
-
-
-
 }
 
 void List::print()
 {
     shared_ptr<List_item> printable_ptr = first_;
-    int running_number = 1;
 
     if (printable_ptr == nullptr) {
         cout << "No elements" <<endl;
@@ -96,12 +86,9 @@ void List::print()
     }
 
     while ( printable_ptr != nullptr ) {
-
         cout << printable_ptr->data << " ";
-        ++running_number;
         printable_ptr = printable_ptr->next;
     }
 
     cout << endl;
-
 }

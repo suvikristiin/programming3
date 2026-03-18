@@ -164,18 +164,13 @@ void TwoWayList::remove_duplicates()
 
         } else {
 
-            //removable_ptr = removable_ptr->next;
             loop = true;
         }
-
 
 
         removable_ptr = removable_ptr->next;
 
     }
-
-    cout << "Testi: ";
-    print();
 
 }
 

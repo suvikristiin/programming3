@@ -46,7 +46,7 @@ unsigned int daysFromFirstDate(const Date& date)
 {
     unsigned int days = 0;
 
-    for(unsigned int year = FIRST_YEAR; year < date.getYear(); ++year) {
+    for(int year = FIRST_YEAR; year < date.getYear(); ++year) {
         if(Date(year, 1, 1).isLeapYear()) {
             days += 366;
         }
@@ -55,7 +55,7 @@ unsigned int daysFromFirstDate(const Date& date)
         }
     }
 
-    for(unsigned int month = 1; month < date.getMonth(); ++month) {
+    for(int month = 1; month < date.getMonth(); ++month) {
         days += daysInMonth(month, date.getYear());
     }
 

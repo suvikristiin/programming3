@@ -18,7 +18,6 @@ public:
 private:
     Date startDate_;
     Date endDate_;
-    unsigned int diff;
 };
 
 #endif // DATEPERIOD_HH

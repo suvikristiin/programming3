@@ -5,9 +5,11 @@
 using namespace std;
 
 
-Car::Car()
+Car::Car() :
+    brand_(), model_(), color_(), registerNum_(), kilometresDriven_(0)
 {
-
+    kilometresDriven_ = 0;
+    service_data_ = make_unique<ServiceData>();
 }
 
 Car::Car(const std::string &brand, const std::string &model, const std::string &color, const std::string &regNum) :

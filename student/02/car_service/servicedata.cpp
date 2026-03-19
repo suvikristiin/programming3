@@ -6,7 +6,7 @@ using namespace std;
 
 ServiceData::ServiceData()
 {
-    map<int, Service> services_;
+
 }
 
 ServiceData::~ServiceData()

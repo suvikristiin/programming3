@@ -22,6 +22,7 @@ Car::Car(const Car &other) :
 {
     kilometresDriven_ = 0;
     service_data_ = make_unique<ServiceData>();
+    registerNum_ = "";
 }
 
 Car::~Car()
@@ -92,7 +93,9 @@ const ServiceData &Car::serviceData() const
 
 void Car::drive(int kilometres)
 {
-    kilometresDriven_ += kilometres;
+    if (kilometres > 0) {
+        kilometresDriven_ += kilometres;
+    }
 }
 
 bool Car::service(const Service &service)
@@ -102,8 +105,7 @@ bool Car::service(const Service &service)
 
 bool Car::service(const std::string &date, const std::vector<std::string> &operations)
 {
-    Service newservice = {date, operations};
-    return service_data_->makeService(newservice, kilometresDriven_);
+    return service_data_->makeService({date, operations}, kilometresDriven_);
 }
 
 void Car::print() const

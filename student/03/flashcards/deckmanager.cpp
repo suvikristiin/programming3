@@ -53,7 +53,23 @@ void DeckManager::print_decks() const
 
 shared_ptr<Deck> DeckManager::add_deck(string deck_name)
 {
+    string prompt_message = "Type all fields separated with spaces:";
+    vector<string> input_fields;
 
+    cout << prompt_message << endl;
+    cout << endl << FIELDS_PROMPT;
+
+    string input = "";
+    getline(cin, input);
+
+    cout << endl;
+
+    input_fields = split(input, ' ');
+
+    shared_ptr<Deck> new_deck =  make_shared<Deck>(deck_name, input_fields);
+    decks_[deck_name] = new_deck;
+
+    return new_deck;
 }
 
 shared_ptr<Deck> DeckManager::add_deck(string deck_name,
@@ -93,6 +109,12 @@ bool DeckManager::run_study(const string &deck_name)
 bool DeckManager::deck_exists(const string &deck_name) const
 {
 
+    if (decks_.find(deck_name) != decks_.end()) {
+        return true;
+    }
+
+    return false;
+
 }
 
 shared_ptr<Fields> DeckManager::get_deck_fields(const string &deck_name) const
@@ -109,6 +131,7 @@ void DeckManager::ask_fields(const string& deck_name,
     {
         return;
     }
+
 
     shared_ptr<Fields> deck_fields = get_deck_fields(deck_name);
 

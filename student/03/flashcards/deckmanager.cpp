@@ -38,7 +38,17 @@ DeckManager::~DeckManager() {}
 
 void DeckManager::print_decks() const
 {
+    if (decks_.empty()) {
+        cout << "No decks have been added."<<endl;
 
+        return;
+    }
+
+    for (pair<string, shared_ptr<Deck>> deck : decks_) {
+        cout << "- " << deck.first << " (" << deck.second->get_deck_size() << " cards)" << endl;
+    }
+
+    cout <<endl;
 }
 
 shared_ptr<Deck> DeckManager::add_deck(string deck_name)

@@ -70,7 +70,7 @@ shared_ptr<Fields> Deck::get_fields()
 
 size_t Deck::get_deck_size()
 {
-
+    return cards_.size();
 }
 
 

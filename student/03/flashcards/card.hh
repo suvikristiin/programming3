@@ -20,6 +20,7 @@
 #include "utils.hh"
 
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -120,6 +121,7 @@ private:
     static unsigned int NEXT_ID;
     unsigned int ID_;
 
+    map<string, string> definitions_;
     // Declare more attributes and/or methods here
 };
 

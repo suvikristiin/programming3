@@ -33,7 +33,14 @@ Deck::~Deck()
 
 bool Deck::add_card(const Fields &card_fields, const Fields &definitions)
 {
+    shared_ptr<Card> new_card = make_shared<Card>();
 
+    if (!new_card->add_new_definitions(card_fields, definitions)) {
+        return false;
+    }
+
+    cards_.push_back(new_card);
+    return true;
 }
 
 bool Deck::add_card(shared_ptr<Card> card)

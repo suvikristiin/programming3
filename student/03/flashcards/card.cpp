@@ -31,7 +31,20 @@ Card::~Card()
 bool Card::add_new_definitions(const Fields &field_types,
                                const Fields &definitions)
 {
+    if (field_types.size() != definitions.size()) {
+        return false;
+    }
 
+    Fields::const_iterator field_iteration = field_types.begin();
+    Fields::const_iterator def_iteration = definitions.begin();
+
+    while (field_iteration != field_types.end()) {
+        definitions_[*field_iteration] = *def_iteration;
+        ++field_iteration;
+        ++def_iteration;
+    }
+
+    return true;
 }
 
 bool Card::has_fields(const Fields &fields) const

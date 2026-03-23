@@ -129,6 +129,7 @@ private:
     // Declare more attributes and/or methods here
     string name_;
     shared_ptr<Fields> deck_fields_;
+    vector<shared_ptr<Card>> cards_;
 };
 
 #endif // DECK_HH

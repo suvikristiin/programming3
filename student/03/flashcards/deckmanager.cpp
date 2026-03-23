@@ -49,7 +49,14 @@ shared_ptr<Deck> DeckManager::add_deck(string deck_name)
 shared_ptr<Deck> DeckManager::add_deck(string deck_name,
                                        const Fields &field_types)
 {
+    if (decks_.find(deck_name) != decks_.end()) {
+        return nullptr;
+    }
 
+    shared_ptr<Deck> new_deck =  make_shared<Deck>(deck_name, field_types);
+    decks_[deck_name] = new_deck;
+
+    return new_deck;
 }
 
 bool DeckManager::add_card(string deck_name)

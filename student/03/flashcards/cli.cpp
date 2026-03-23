@@ -239,6 +239,7 @@ bool Cli::read_file(const string &file_name)
         return false;
     }
 
+
     read_cards(file_object, new_deck, field_names, card_count);
 
     cout << MESSAGE_ADD_DECK << deck_name << endl;

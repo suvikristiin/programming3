@@ -166,6 +166,8 @@ private:
                     Fields& input_fields,
                     bool allow_all = true) const;
 
+    map<string, shared_ptr<Deck>> decks_;
+
 };
 
 #endif // DECKMANAGER_HH

@@ -39,7 +39,7 @@ DeckManager::~DeckManager() {}
 void DeckManager::print_decks() const
 {
     if (decks_.empty()) {
-        cout << "No decks have been added."<<endl;
+        cout << NO_DECKS <<endl;
 
         return;
     }
@@ -117,6 +117,21 @@ bool DeckManager::add_card(string deck_name)
 void DeckManager::overview(const string& deck_name)
 {
 
+    map<string, shared_ptr<Deck>>::iterator it = decks_.find(deck_name);
+    shared_ptr<Deck> deck = it->second;
+
+    if (deck->get_deck_size() == 0) {
+        cout << NO_CARDS <<endl;
+        return;
+    }
+
+    string prompt_message = "Choose fields to print:";
+    Fields input_fields;
+    bool allow_all = true;
+    ask_fields(deck_name, prompt_message, input_fields, allow_all);
+
+
+    deck->print_deck(input_fields);
 }
 
 bool DeckManager::copy(string source_deck_name,

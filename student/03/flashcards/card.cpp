@@ -67,7 +67,20 @@ double Card::check_answers(const Fields& answer_fields,
 
 bool Card::print_card(const Fields& print_fields) const
 {
+    cout << " " << ID_ << " |";
+    for (string field : print_fields) {
+        map<string, string>::const_iterator it = definitions_.find(field);
 
+        if (it == definitions_.end()) {
+            return false;
+        }
+
+        cout << " " << it->second << " |";
+
+    }
+
+    cout<<endl;
+    return true;
 }
 
 bool Card::operator==(const Card &other) const

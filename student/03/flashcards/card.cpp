@@ -31,6 +31,7 @@ Card::~Card()
 bool Card::add_new_definitions(const Fields &field_types,
                                const Fields &definitions)
 {
+
     if (field_types.size() != definitions.size()) {
         return false;
     }

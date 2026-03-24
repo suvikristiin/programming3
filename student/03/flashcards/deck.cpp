@@ -65,7 +65,7 @@ bool Deck::print_deck(const Fields &requested_fields)
 
 shared_ptr<Fields> Deck::get_fields()
 {
-
+    return deck_fields_;
 }
 
 size_t Deck::get_deck_size()

@@ -88,6 +88,30 @@ shared_ptr<Deck> DeckManager::add_deck(string deck_name,
 bool DeckManager::add_card(string deck_name)
 {
 
+    map<string, shared_ptr<Deck>>::iterator it = decks_.find(deck_name);
+
+    if (it == decks_.end()) {
+        return false;
+    }
+
+    shared_ptr<Deck> deck = it->second;
+    shared_ptr<Fields> deck_fields = deck->get_fields();
+
+    cout << "Type all definitions line by line:" << endl;
+
+    vector<string> input_fields;
+    string input;
+
+    for (const string& field : *deck_fields)
+    {
+        cout << field << ": ";
+        getline(cin, input);
+        input_fields.push_back(input);
+    }
+
+    cout << endl;
+
+    return deck->add_card(*deck_fields, input_fields);
 }
 
 void DeckManager::overview(const string& deck_name)
@@ -119,7 +143,13 @@ bool DeckManager::deck_exists(const string &deck_name) const
 
 shared_ptr<Fields> DeckManager::get_deck_fields(const string &deck_name) const
 {
+    map<string, shared_ptr<Deck>>::const_iterator it = decks_.find(deck_name);
 
+    if (it == decks_.end()) {
+        return nullptr;
+    }
+
+    return it->second->get_fields();
 }
 
 void DeckManager::ask_fields(const string& deck_name,

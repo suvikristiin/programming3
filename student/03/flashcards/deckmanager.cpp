@@ -130,14 +130,32 @@ void DeckManager::overview(const string& deck_name)
     bool allow_all = true;
     ask_fields(deck_name, prompt_message, input_fields, allow_all);
 
-
     deck->print_deck(input_fields);
 }
 
 bool DeckManager::copy(string source_deck_name,
                        string destination_deck_name)
 {
+    map<string, shared_ptr<Deck>>::const_iterator source_it = decks_.find(source_deck_name);
+    map<string, shared_ptr<Deck>>::const_iterator dest_it = decks_.find(destination_deck_name);
 
+    if (source_it == decks_.end()) return false;
+
+    if (dest_it == decks_.end()) {
+        shared_ptr<Deck> new_destination_deck =  make_shared<Deck>(destination_deck_name, *source_it->second->get_fields());
+        decks_[destination_deck_name] = new_destination_deck;
+        dest_it = decks_.find(destination_deck_name);
+    }
+
+    if (!fields_match(*source_it->second->get_fields(), *dest_it->second->get_fields())) {
+        return false;
+    }
+
+    if(!source_it->second->copy_cards(dest_it->second)) {
+        return false;
+    }
+
+    return true;
 }
 
 bool DeckManager::run_study(const string &deck_name)

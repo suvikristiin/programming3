@@ -50,7 +50,13 @@ bool Card::add_new_definitions(const Fields &field_types,
 
 bool Card::has_fields(const Fields &fields) const
 {
+    for (const string& field : fields) {
+        if (definitions_.find(field) == definitions_.end()) {
+            return false;
+        }
+    }
 
+    return true;
 }
 
 bool Card::get_definitions(const Fields &requested_fields,
@@ -76,7 +82,6 @@ bool Card::print_card(const Fields& print_fields) const
         }
 
         cout << " " << it->second << " |";
-
     }
 
     cout<<endl;

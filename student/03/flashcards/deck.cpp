@@ -45,12 +45,30 @@ bool Deck::add_card(const Fields &card_fields, const Fields &definitions)
 
 bool Deck::add_card(shared_ptr<Card> card)
 {
+    for (const shared_ptr<Card>& c : cards_) {
+        if (*c == *card) {  // sama ID
+            return false;
+        }
+    }
 
+    cards_.push_back(card);
+    return true;
 }
 
 bool Deck::copy_cards(shared_ptr<Deck> destination)
 {
+    shared_ptr<Fields> dest_fields = destination->get_fields();
 
+    for (const shared_ptr<Card>& card : cards_) {
+
+        if (!card->has_fields(*dest_fields)) {
+            continue;
+        }
+
+        destination->add_card(card);
+    }
+
+    return true;
 }
 
 shared_ptr<Card> Deck::get_next_study_card(unsigned int& cards_studied)

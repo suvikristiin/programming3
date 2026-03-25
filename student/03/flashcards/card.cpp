@@ -62,19 +62,45 @@ bool Card::has_fields(const Fields &fields) const
 bool Card::get_definitions(const Fields &requested_fields,
                            Fields &return_definitions)
 {
+    for (const string& field : requested_fields) {
 
+        map<string, string>::iterator it = definitions_.find(field);
+
+        if (it == definitions_.end()) {
+            return false;
+        }
+
+        return_definitions.push_back(it->second);
+    }
+
+    return true;
 }
 
 double Card::check_answers(const Fields& answer_fields,
                            const Fields& answers) const
 {
+    double correct = 0;
+    double total = answers.size();
 
+    for (unsigned int i = 0; i < answers.size(); i++) {
+
+        const string& field = answer_fields.at(i);
+        const string& user_answer = answers.at(i);
+        map<string, string>::const_iterator it = definitions_.find(field);
+        const string& correct_answer = it->second;
+
+        if (user_answer == correct_answer) {
+            correct++;
+        }
+    }
+
+    return correct/total;
 }
 
 bool Card::print_card(const Fields& print_fields) const
 {
     cout << " " << ID_ << " |";
-    for (string field : print_fields) {
+    for (const string& field : print_fields) {
         map<string, string>::const_iterator it = definitions_.find(field);
 
         if (it == definitions_.end()) {

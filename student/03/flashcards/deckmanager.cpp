@@ -160,7 +160,81 @@ bool DeckManager::copy(string source_deck_name,
 
 bool DeckManager::run_study(const string &deck_name)
 {
+    map<string, shared_ptr<Deck>>::iterator it = decks_.find(deck_name);
 
+
+    shared_ptr<Deck> deck = it->second;
+
+    if (deck->get_deck_size() == 0) {
+        cout << NO_CARDS <<endl;
+        return false;
+    }
+
+    Fields prompt_fields;
+    Fields answers_fields;
+    bool allow_all = true;
+    ask_fields(deck_name, PROMPT_FIELDS_PRINT, prompt_fields, allow_all);
+    ask_fields(deck_name, PROMPT_FIELDS_ANSWER, answers_fields, allow_all);
+
+    cout << "Study " << deck->get_deck_size() << " cards" <<endl;
+    cout << MESSAGE_STUDY_PROMPTS;
+
+    for (const string& prompt_field : prompt_fields)
+    {
+        cout << prompt_field << " ";
+    }
+
+    cout <<endl;
+
+    cout << MESSAGE_STUDY_ANSWERS;
+
+    for (const string& answer_field : answers_fields)
+    {
+        cout << answer_field << " ";
+    }
+
+    double total_points = 0.0;
+    unsigned int cards_studied = 0;
+    cout <<endl;
+    cout <<endl;
+
+    while (true) {
+
+        shared_ptr<Card> card = deck->get_next_study_card(cards_studied);
+
+        if (card == nullptr) {
+            break;
+        }
+
+        Fields question_fields;
+        card->get_definitions(prompt_fields, question_fields);
+        unsigned int i = 0;
+
+        while (i < question_fields.size()) {
+            cout << question_fields.at(i);
+            if (i != question_fields.size() - 1) {
+                cout << "/";
+            }
+
+            i++;
+        }
+
+        cout << ": ";
+
+        string input_answers;
+        getline(cin, input_answers);
+
+        Fields user_answers = split(input_answers, ' ');
+        total_points += card->check_answers(answers_fields, user_answers);
+        cards_studied++;
+
+    }
+
+    cout <<endl;
+    double result = (total_points/static_cast<double>(cards_studied)) * 100;
+    cout << "Final result of the study session: " << fixed << setprecision(2) << result << "%" << endl;
+
+    return true;
 }
 
 bool DeckManager::deck_exists(const string &deck_name) const

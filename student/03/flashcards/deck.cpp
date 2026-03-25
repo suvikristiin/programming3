@@ -73,7 +73,11 @@ bool Deck::copy_cards(shared_ptr<Deck> destination)
 
 shared_ptr<Card> Deck::get_next_study_card(unsigned int& cards_studied)
 {
+    if (cards_studied >= cards_.size()) {
+        return nullptr;
+    }
 
+    return cards_.at(cards_studied);
 }
 
 bool Deck::print_deck(const Fields &requested_fields)

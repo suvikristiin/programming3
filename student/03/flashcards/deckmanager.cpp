@@ -18,6 +18,8 @@
 #include <iostream>
 #include <iomanip>
 
+using namespace std;
+
 const string PROMPT_FIELDS_PRINT = "Choose fields to print: ";
 const string PROMPT_FIELDS_ANSWER = "Choose fields to answer: ";
 const string PROMPT_TYPE_FIELDS = "Type all fields separated with spaces: ";
@@ -44,7 +46,7 @@ void DeckManager::print_decks() const
         return;
     }
 
-    for (pair<string, shared_ptr<Deck>> deck : decks_) {
+    for (const pair<const string, shared_ptr<Deck>>& deck : decks_) {
         cout << "- " << deck.first << " (" << deck.second->get_deck_size() << " cards)" << endl;
     }
 

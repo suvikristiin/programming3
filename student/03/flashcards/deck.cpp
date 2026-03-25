@@ -15,10 +15,11 @@
 #include "deck.hh"
 
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
-const string NO_CARDS = "No cards have been added.";
+//const string NO_CARDS = "No cards have been added.";
 
 Deck::Deck(string deck_name, const Fields& fields) :
     name_(deck_name), deck_fields_(make_shared<Fields>(fields))
@@ -99,7 +100,7 @@ bool Deck::print_deck(const Fields &requested_fields)
     }
     cout << endl;
 
-    for (shared_ptr<Card> card : cards_) {
+    for (const shared_ptr<Card>& card : cards_) {
         card->print_card(requested_fields);
     }
 

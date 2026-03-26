@@ -125,6 +125,18 @@ public:
      */
     size_t get_deck_size();
 
+
+    /**
+     * @brief Checks if the deck contains the specified fields.
+     *
+     * Called in the command 'study' and 'overview' to check if the card has
+     * the fields of a deck.
+     *
+     * @param fields Field identifiers
+     * @return True if all fields exist in the deck, false otherwise
+     */
+    bool has_fields(const Fields& fields);
+
 private:
     // Declare more attributes and/or methods here
     string name_;

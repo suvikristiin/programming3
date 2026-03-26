@@ -81,16 +81,24 @@ shared_ptr<Card> Deck::get_next_study_card(unsigned int& cards_studied)
     return cards_.at(cards_studied);
 }
 
-bool Deck::print_deck(const Fields &requested_fields)
-{
+bool Deck::has_fields(const Fields &fields) {
 
-    for (const string& field : requested_fields) {
+    for (const string& field : fields) {
         if (find(deck_fields_->begin(), deck_fields_->end(), field) == deck_fields_->end()) {
-            cout << "Error: Incorrect field information." << endl;
             return false;
         }
     }
 
+    return true;
+}
+
+bool Deck::print_deck(const Fields &requested_fields)
+{
+
+    if (!has_fields(requested_fields)){
+        cout << "Error: Incorrect field information." << endl;
+        return false;
+    }
 
     cout << name_ << " (" << get_deck_size() << " cards)" << endl;
     cout << endl << "   |";

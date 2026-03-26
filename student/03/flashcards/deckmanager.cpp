@@ -50,7 +50,6 @@ void DeckManager::print_decks() const
         cout << "- " << deck.first << " (" << deck.second->get_deck_size() << " cards)" << endl;
     }
 
-    cout <<endl;
 }
 
 shared_ptr<Deck> DeckManager::add_deck(string deck_name)
@@ -59,12 +58,10 @@ shared_ptr<Deck> DeckManager::add_deck(string deck_name)
     vector<string> input_fields;
 
     cout << prompt_message << endl;
-    cout << endl << FIELDS_PROMPT;
+    cout << FIELDS_PROMPT;
 
     string input = "";
     getline(cin, input);
-
-    cout << endl;
 
     input_fields = split(input, ' ');
 
@@ -177,6 +174,11 @@ bool DeckManager::run_study(const string &deck_name)
     bool allow_all = true;
     ask_fields(deck_name, PROMPT_FIELDS_PRINT, prompt_fields, allow_all);
     ask_fields(deck_name, PROMPT_FIELDS_ANSWER, answers_fields, allow_all);
+    shared_ptr<Fields> fields = deck->get_fields();
+
+    if (!deck->has_fields(prompt_fields) || !deck->has_fields(answers_fields)){
+        return false;
+    }
 
     cout << "Study " << deck->get_deck_size() << " cards" <<endl;
     cout << MESSAGE_STUDY_PROMPTS;

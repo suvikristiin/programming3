@@ -171,7 +171,7 @@ bool DeckManager::run_study(const string &deck_name)
 
     Fields prompt_fields;
     Fields answers_fields;
-    bool allow_all = true;
+    bool allow_all = false;
     ask_fields(deck_name, PROMPT_FIELDS_PRINT, prompt_fields, allow_all);
     ask_fields(deck_name, PROMPT_FIELDS_ANSWER, answers_fields, allow_all);
     shared_ptr<Fields> fields = deck->get_fields();

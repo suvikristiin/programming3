@@ -137,6 +137,8 @@ public:
      */
     bool has_fields(const Fields& fields);
 
+    vector<unsigned int> get_card_ids();
+
 private:
     // Declare more attributes and/or methods here
     string name_;

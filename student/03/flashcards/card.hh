@@ -117,6 +117,8 @@ public:
      */
     bool operator==(const Card& other) const;
 
+    unsigned int get_id();
+
 private:
     static unsigned int NEXT_ID;
     unsigned int ID_;

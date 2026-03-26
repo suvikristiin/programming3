@@ -48,6 +48,11 @@ bool Card::add_new_definitions(const Fields &field_types,
     return true;
 }
 
+unsigned int Card::get_id() {
+    return ID_;
+}
+
+
 bool Card::has_fields(const Fields &fields) const
 {
     for (const string& field : fields) {

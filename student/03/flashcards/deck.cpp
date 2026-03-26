@@ -44,6 +44,16 @@ bool Deck::add_card(const Fields &card_fields, const Fields &definitions)
     return true;
 }
 
+vector<unsigned int> Deck::get_card_ids() {
+    vector<unsigned int> ids;
+
+    for(const shared_ptr<Card>& c : cards_) {
+        if(c) ids.push_back(c->get_id());
+    }
+
+    return ids;
+}
+
 bool Deck::add_card(shared_ptr<Card> card)
 {
     for (const shared_ptr<Card>& c : cards_) {

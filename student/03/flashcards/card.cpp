@@ -7,8 +7,11 @@
 #                                                                           #
 # Notes:                                                                    #
 #                                                                           #
-# Author information:                                                       #
-#                                                                           #
+# Author information:                                                       #                                                      #
+# - Name: Suvi Vehmaanperä
+# - Student number: 151335682
+# - Gitlab user name: xgsuve
+# - Tuni email: suvi.vehmaanpera@tuni.fi                                                                            #
 #############################################################################
 */
 
@@ -40,7 +43,7 @@ bool Card::add_new_definitions(const Fields &field_types,
     Fields::const_iterator def_iteration = definitions.begin();
 
     while (field_iteration != field_types.end()) {
-        definitions_[*field_iteration] = *def_iteration;
+        definitions_.insert({*field_iteration, *def_iteration});  // Ei hakasulkuja
         ++field_iteration;
         ++def_iteration;
     }
@@ -48,7 +51,7 @@ bool Card::add_new_definitions(const Fields &field_types,
     return true;
 }
 
-unsigned int Card::get_id() {
+unsigned int Card::get_id() const {
     return ID_;
 }
 
@@ -68,7 +71,6 @@ bool Card::get_definitions(const Fields &requested_fields,
                            Fields &return_definitions)
 {
     for (const string& field : requested_fields) {
-
         map<string, string>::iterator it = definitions_.find(field);
 
         if (it == definitions_.end()) {
@@ -85,10 +87,9 @@ double Card::check_answers(const Fields& answer_fields,
                            const Fields& answers) const
 {
     double correct = 0;
-    double total = answers.size();
+    const double& TOTAL = answers.size();
 
     for (unsigned int i = 0; i < answers.size(); i++) {
-
         const string& field = answer_fields.at(i);
         const string& user_answer = answers.at(i);
         map<string, string>::const_iterator it = definitions_.find(field);
@@ -99,12 +100,13 @@ double Card::check_answers(const Fields& answer_fields,
         }
     }
 
-    return correct/total;
+    return correct/TOTAL;
 }
 
 bool Card::print_card(const Fields& print_fields) const
 {
     cout << " " << ID_ << " |";
+
     for (const string& field : print_fields) {
         map<string, string>::const_iterator it = definitions_.find(field);
 

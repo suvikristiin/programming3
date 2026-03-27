@@ -10,7 +10,10 @@
 #        * Acts as an abstraction layer between CLI and Deck objects.       #
 #                                                                           #
 # Author information:                                                       #
-#                                                                           #
+# - Name: Suvi Vehmaanperä
+# - Student number: 151335682
+# - Gitlab user name: xgsuve
+# - Tuni email: suvi.vehmaanpera@tuni.fi                                                                             #
 #############################################################################
 */
 

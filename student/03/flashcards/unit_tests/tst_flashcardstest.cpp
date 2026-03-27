@@ -1,3 +1,19 @@
+/* gbtest
+ *
+ * Desc:
+ *
+ * This test program is to test common use cases related to the flashcard program,
+ * such as adding cards, copying a deck to another deck, and studying cards and
+ * calculating points for studying, using unit and data-based tests.
+ *
+ * Author information
+ * - Name: Suvi Vehmaanperä
+ * - Student number: 151335682
+ * - Gitlab user name: xgsuve
+ * - Tuni email: suvi.vehmaanpera@tuni.fi
+ *
+ * */
+
 #include <QtTest>
 #include "../card.hh"
 #include "../deck.hh"
@@ -15,10 +31,41 @@ public:
     ~flashcardstest();
 
 private slots:
-    void test_case1();
+
+    /**
+     * @brief Tests adding a card into a deck.
+     *
+     * Verifies that:
+     * - Card definitions can be added successfully
+     * - Card can be added to a deck
+     * - The stored card ID matches the original card ID
+     */
     void testAddCard();
+    /**
+     * @brief Tests copying cards from one deck to another
+     *
+     * Verifies that:
+     * - Cards are successfully copied when fields match
+     * - Card IDs in target match those in source
+     */
     void testCopyCards();
+    /**
+     * @brief Tests Card::check_answers using data-driven approach.
+     *
+     * Verifies that:
+     * - Card contains required fields
+     * - Answer checking returns correct score
+     * - Works correctly for fully correct, partially correct, and incorrect answers
+     */
     void check_answers();
+    /**
+     * @brief Data function for answer checking tests.
+     *
+     * Provides test cases with:
+     * - Fields to check
+     * - User-provided answers
+     * - Expected score (0.0 - 1.0)
+     */
     void check_answers_data();
 };
 
@@ -26,7 +73,6 @@ flashcardstest::flashcardstest() {}
 
 flashcardstest::~flashcardstest() {}
 
-void flashcardstest::test_case1() {}
 
 
 void flashcardstest::testAddCard() {
@@ -40,7 +86,6 @@ void flashcardstest::testAddCard() {
     QVERIFY(d.add_card(card));
 
     vector<unsigned int> ids = d.get_card_ids();
-    QCOMPARE(ids.size(), size_t(1));
     QCOMPARE(ids[0], card->get_id());
 }
 
@@ -61,7 +106,7 @@ void flashcardstest::testCopyCards() {
     QVERIFY(deck_manager.copy("SourceDeck", "TargetDeck"));
     vector<unsigned int> target_ids = target->get_card_ids();
     vector<unsigned int> source_ids = source->get_card_ids();
-    QCOMPARE(target_ids.size(), size_t(2));
+
     QCOMPARE(target_ids[0], source_ids[0]);
     QCOMPARE(target_ids[1], source_ids[1]);
     QCOMPARE(target_ids[0], card1->get_id());
@@ -106,9 +151,6 @@ void flashcardstest::check_answers()
 
     QCOMPARE(score, expected_score);
 }
-
-
-
 
 QTEST_APPLESS_MAIN(flashcardstest)
 

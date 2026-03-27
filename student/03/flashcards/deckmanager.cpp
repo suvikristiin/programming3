@@ -8,7 +8,10 @@
 # Notes:                                                                    #
 #                                                                           #
 # Author information:                                                       #
-#                                                                           #
+* - Name: Suvi Vehmaanperä
+* - Student number: 151335682
+* - Gitlab user name: xgsuve
+* - Tuni email: suvi.vehmaanpera@tuni.fi                                                                      #
 #############################################################################
 */
 
@@ -20,19 +23,19 @@
 
 using namespace std;
 
-const string PROMPT_FIELDS_PRINT = "Choose fields to print: ";
-const string PROMPT_FIELDS_ANSWER = "Choose fields to answer: ";
-const string PROMPT_TYPE_FIELDS = "Type all fields separated with spaces: ";
-const string PROMPT_TYPE_DEFINITIONS = "Type all definitions line by line: ";
+const string& PROMPT_FIELDS_PRINT = "Choose fields to print: ";
+const string& PROMPT_FIELDS_ANSWER = "Choose fields to answer: ";
+const string& PROMPT_TYPE_FIELDS = "Type all fields separated with spaces: ";
+const string& PROMPT_TYPE_DEFINITIONS = "Type all definitions line by line: ";
 
-const string NO_DECKS = "No decks have been added.";
-const string NO_CARDS = "No cards have been added.";
+const string& NO_DECKS = "No decks have been added.";
+const string& NO_CARDS = "No cards have been added.";
 
-const string MESSAGE_STUDY_PROMPTS = "Prompts shown in: ";
-const string MESSAGE_STUDY_ANSWERS = "Type answers in: ";
-const string MESSAGE_STUDY_RESULT = "Final result of the study session: ";
+const string& MESSAGE_STUDY_PROMPTS = "Prompts shown in: ";
+const string& MESSAGE_STUDY_ANSWERS = "Type answers in: ";
+const string& MESSAGE_STUDY_RESULT = "Final result of the study session: ";
 
-const string FIELDS_PROMPT = "FIELDS> ";
+const string& FIELDS_PROMPT = "FIELDS> ";
 
 DeckManager::DeckManager() {}
 
@@ -42,7 +45,6 @@ void DeckManager::print_decks() const
 {
     if (decks_.empty()) {
         cout << NO_DECKS <<endl;
-
         return;
     }
 
@@ -54,17 +56,12 @@ void DeckManager::print_decks() const
 
 shared_ptr<Deck> DeckManager::add_deck(string deck_name)
 {
-    string prompt_message = "Type all fields separated with spaces:";
     vector<string> input_fields;
-
-    cout << prompt_message << endl;
+    cout << PROMPT_TYPE_FIELDS << endl;
     cout << FIELDS_PROMPT;
-
     string input = "";
     getline(cin, input);
-
     input_fields = split(input, ' ');
-
     shared_ptr<Deck> new_deck =  make_shared<Deck>(deck_name, input_fields);
     decks_[deck_name] = new_deck;
 
@@ -79,7 +76,7 @@ shared_ptr<Deck> DeckManager::add_deck(string deck_name,
     }
 
     shared_ptr<Deck> new_deck =  make_shared<Deck>(deck_name, field_types);
-    decks_[deck_name] = new_deck;
+    decks_.insert({deck_name, new_deck});
 
     return new_deck;
 }
@@ -95,14 +92,11 @@ bool DeckManager::add_card(string deck_name)
 
     shared_ptr<Deck> deck = it->second;
     shared_ptr<Fields> deck_fields = deck->get_fields();
-
-    cout << "Type all definitions line by line:" << endl;
-
+    cout << PROMPT_TYPE_DEFINITIONS << endl;
     vector<string> input_fields;
     string input;
 
-    for (const string& field : *deck_fields)
-    {
+    for (const string& field : *deck_fields) {
         cout << field << ": ";
         getline(cin, input);
         input_fields.push_back(input);
@@ -118,17 +112,16 @@ void DeckManager::overview(const string& deck_name)
 
     map<string, shared_ptr<Deck>>::iterator it = decks_.find(deck_name);
     shared_ptr<Deck> deck = it->second;
+    const size_t& EMPTY_DECK = 0;
 
-    if (deck->get_deck_size() == 0) {
+    if (deck->get_deck_size() == EMPTY_DECK) {
         cout << NO_CARDS <<endl;
         return;
     }
 
-    string prompt_message = "Choose fields to print:";
     Fields input_fields;
     bool allow_all = true;
-    ask_fields(deck_name, prompt_message, input_fields, allow_all);
-
+    ask_fields(deck_name, PROMPT_FIELDS_PRINT, input_fields, allow_all);
     deck->print_deck(input_fields);
 }
 
@@ -160,18 +153,17 @@ bool DeckManager::copy(string source_deck_name,
 bool DeckManager::run_study(const string &deck_name)
 {
     map<string, shared_ptr<Deck>>::iterator it = decks_.find(deck_name);
-
-
     shared_ptr<Deck> deck = it->second;
+    const size_t& EMPTY_DECK = 0;
 
-    if (deck->get_deck_size() == 0) {
+    if (deck->get_deck_size() == EMPTY_DECK) {
         cout << NO_CARDS <<endl;
         return false;
     }
 
     Fields prompt_fields;
     Fields answers_fields;
-    bool allow_all = false;
+     bool allow_all = false;
     ask_fields(deck_name, PROMPT_FIELDS_PRINT, prompt_fields, allow_all);
     ask_fields(deck_name, PROMPT_FIELDS_ANSWER, answers_fields, allow_all);
     shared_ptr<Fields> fields = deck->get_fields();
@@ -183,17 +175,14 @@ bool DeckManager::run_study(const string &deck_name)
     cout << "Study " << deck->get_deck_size() << " cards" <<endl;
     cout << MESSAGE_STUDY_PROMPTS;
 
-    for (const string& prompt_field : prompt_fields)
-    {
+    for (const string& prompt_field : prompt_fields) {
         cout << prompt_field << " ";
     }
 
     cout <<endl;
-
     cout << MESSAGE_STUDY_ANSWERS;
 
-    for (const string& answer_field : answers_fields)
-    {
+    for (const string& answer_field : answers_fields) {
         cout << answer_field << " ";
     }
 
@@ -203,7 +192,6 @@ bool DeckManager::run_study(const string &deck_name)
     cout <<endl;
 
     while (true) {
-
         shared_ptr<Card> card = deck->get_next_study_card(cards_studied);
 
         if (card == nullptr) {
@@ -216,18 +204,16 @@ bool DeckManager::run_study(const string &deck_name)
 
         while (i < question_fields.size()) {
             cout << question_fields.at(i);
+
             if (i != question_fields.size() - 1) {
                 cout << "/";
             }
-
             i++;
         }
 
         cout << ": ";
-
         string input_answers;
         getline(cin, input_answers);
-
         Fields user_answers = split(input_answers, ' ');
         total_points += card->check_answers(answers_fields, user_answers);
         cards_studied++;
@@ -236,7 +222,7 @@ bool DeckManager::run_study(const string &deck_name)
 
     cout <<endl;
     double result = (total_points/static_cast<double>(cards_studied)) * 100;
-    cout << "Final result of the study session: " << fixed << setprecision(2) << result << "%" << endl;
+    cout << PROMPT_FIELDS_PRINT << fixed << setprecision(2) << result << "%" << endl;
 
     return true;
 }
@@ -249,7 +235,6 @@ bool DeckManager::deck_exists(const string &deck_name) const
     }
 
     return false;
-
 }
 
 shared_ptr<Fields> DeckManager::get_deck_fields(const string &deck_name) const
@@ -268,33 +253,25 @@ void DeckManager::ask_fields(const string& deck_name,
                              Fields& input_fields,
                              bool allow_all) const
 {
-    if ( not deck_exists(deck_name) )
-    {
+    if (not deck_exists(deck_name)) {
         return;
     }
 
-
     shared_ptr<Fields> deck_fields = get_deck_fields(deck_name);
-
     cout << prompt_message << endl;
 
-    for (const string& field : *deck_fields)
-    {
+    for (const string& field : *deck_fields) {
         cout << field << " ";
     }
 
-    if (allow_all)
-    {
+    if (allow_all) {
         cout << "or all";
     }
 
     cout << endl << FIELDS_PROMPT;
-
     string input = "";
     getline(cin, input);
-
     cout << endl;
-
     input_fields = split(input, ' ');
 
     if (allow_all and input_fields.size() == 1 and input_fields.at(0) == "all")

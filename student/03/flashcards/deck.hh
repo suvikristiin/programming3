@@ -10,7 +10,10 @@
 #        * Provides operations for printing, studying and copying cards.    #
 #                                                                           #
 # Author information:                                                       #
-#                                                                           #
+# - Name: Suvi Vehmaanperä
+# - Student number: 151335682
+# - Gitlab user name: xgsuve
+# - Tuni email: suvi.vehmaanpera@tuni.fi                                                                            #
 #############################################################################
 */
 
@@ -137,6 +140,14 @@ public:
      */
     bool has_fields(const Fields& fields);
 
+    /**
+     * @brief Returns the number of cards in the deck.
+     *
+     * Use the unit in tests when checking adding a new card to a deck
+     * and copying a card to the destination deck
+     *
+     * @return The id numbers of the cards
+     */
     vector<unsigned int> get_card_ids();
 
 private:

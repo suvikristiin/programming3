@@ -8,7 +8,10 @@
 # Notes:                                                                    #
 #                                                                           #
 # Author information:                                                       #
-#                                                                           #
+# - Name: Suvi Vehmaanperä
+# - Student number: 151335682
+# - Gitlab user name: xgsuve
+# - Tuni email: suvi.vehmaanpera@tuni.fi                                                                      #
 #############################################################################
 */
 
@@ -18,8 +21,7 @@
 #include <algorithm>
 
 using namespace std;
-
-//const string NO_CARDS = "No cards have been added.";
+const string& ERROR_FIELDS = "Error: Incorrect field information.";
 
 Deck::Deck(string deck_name, const Fields& fields) :
     name_(deck_name), deck_fields_(make_shared<Fields>(fields))
@@ -44,10 +46,12 @@ bool Deck::add_card(const Fields &card_fields, const Fields &definitions)
     return true;
 }
 
-vector<unsigned int> Deck::get_card_ids() {
+vector<unsigned int> Deck::get_card_ids()
+{
     vector<unsigned int> ids;
 
     for(const shared_ptr<Card>& c : cards_) {
+
         if(c) ids.push_back(c->get_id());
     }
 
@@ -57,7 +61,8 @@ vector<unsigned int> Deck::get_card_ids() {
 bool Deck::add_card(shared_ptr<Card> card)
 {
     for (const shared_ptr<Card>& c : cards_) {
-        if (*c == *card) {  // sama ID
+
+        if (*c == *card) {
             return false;
         }
     }
@@ -94,6 +99,7 @@ shared_ptr<Card> Deck::get_next_study_card(unsigned int& cards_studied)
 bool Deck::has_fields(const Fields &fields) {
 
     for (const string& field : fields) {
+
         if (find(deck_fields_->begin(), deck_fields_->end(), field) == deck_fields_->end()) {
             return false;
         }
@@ -106,7 +112,7 @@ bool Deck::print_deck(const Fields &requested_fields)
 {
 
     if (!has_fields(requested_fields)){
-        cout << "Error: Incorrect field information." << endl;
+        cout << ERROR_FIELDS << endl;
         return false;
     }
 
@@ -116,6 +122,7 @@ bool Deck::print_deck(const Fields &requested_fields)
     for (const string& field : requested_fields) {
         cout << " " << field << " |";
     }
+
     cout << endl;
 
     for (const shared_ptr<Card>& card : cards_) {

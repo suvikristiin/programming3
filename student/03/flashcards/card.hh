@@ -9,8 +9,11 @@
 #        * Stores definitions mapped to named fields.                       #
 #        * Provides answer checking and prompt retrieval.                   #
 #                                                                           #
-# Author information:                                                       #
-#                                                                           #
+# Author information:                                                       #                                                      #                                                      #
+# - Name: Suvi Vehmaanperä
+# - Student number: 151335682
+# - Gitlab user name: xgsuve
+# - Tuni email: suvi.vehmaanpera@tuni.fi                                                                            #
 #############################################################################
 */
 
@@ -117,7 +120,15 @@ public:
      */
     bool operator==(const Card& other) const;
 
-    unsigned int get_id();
+    /**
+     * @brief returns card id number.
+     *
+     * Use the unit in tests when checking adding a new card to a deck
+     * and copying a card to the destination deck
+     *
+     * @return The id number of the card
+     */
+    unsigned int get_id() const;
 
 private:
     static unsigned int NEXT_ID;

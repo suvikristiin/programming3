@@ -222,7 +222,7 @@ bool DeckManager::run_study(const string &deck_name)
 
     cout <<endl;
     double result = (total_points/static_cast<double>(cards_studied)) * 100;
-    cout << PROMPT_FIELDS_PRINT << fixed << setprecision(2) << result << "%" << endl;
+    cout << MESSAGE_STUDY_RESULT << fixed << setprecision(2) << result << "%" << endl;
 
     return true;
 }

@@ -41,6 +41,10 @@ unsigned int RockPaperScissors::roundWinner(const std::string &word1, const std:
             return 1;
         }
     } else {
-        return 0;
+        if (word2 == "rock" || word2 == "scissors" || word2 == "paper")  {
+            return 2;
+        } else {
+            return 0;
+        }
     }
 }

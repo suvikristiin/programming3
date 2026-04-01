@@ -4,12 +4,12 @@
 Student::Student(const std::string &name, int age, const std::string student_num) :
     Person(name, age), student_num_(student_num)
 {
-    std::cout << "Student created:  " << name_ << std::endl;
+    std::cout << "Student created: " << name_ << std::endl;
 }
 
 Student::~Student()
 {
-    std::cout << "Student destructed:  " << name_ << std::endl;
+    std::cout << "Student destructed: " << name_ << std::endl;
 }
 
 void Student::print(std::ostream &output) const

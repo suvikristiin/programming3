@@ -4,12 +4,12 @@
 Person::Person(const std::string &name, int age) :
     name_(name), age_(age)
 {
-    std::cout << "Person created:  " << name_ << std::endl;
+    std::cout << "Person created: " << name_ << std::endl;
 }
 
 Person::~Person()
 {
-    std::cout << "Person destructed:  " << name_ << std::endl;
+    std::cout << "Person destructed: " << name_ << std::endl;
 }
 
 std::string Person::get_name() const

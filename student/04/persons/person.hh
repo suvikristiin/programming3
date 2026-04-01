@@ -17,12 +17,12 @@ public:
     std::string get_name() const;
 
     // Updates person's age as the given parameter
-    void celebrate_birthday(int next_age);
+    virtual void celebrate_birthday(int next_age);
 
     // Prints person's data in the format: <name> : <age>
-    void print(std::ostream& output) const;
+    virtual void print(std::ostream& output) const;
 
-private:
+protected:
     std::string name_;
     int age_;
 };

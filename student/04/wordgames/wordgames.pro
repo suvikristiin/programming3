@@ -5,7 +5,11 @@ CONFIG -= qt
 
 SOURCES += \
         basegame.cpp \
-        main.cpp
+        main.cpp \
+        mostvowels.cpp \
+        rockpaperscissors.cpp
 
 HEADERS += \
-    basegame.hh
+    basegame.hh \
+    mostvowels.hh \
+    rockpaperscissors.hh

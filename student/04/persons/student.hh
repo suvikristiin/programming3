@@ -1,6 +1,8 @@
+#include <vector>
 #ifndef STUDENT_HH
 #define STUDENT_HH
 #include "person.hh"
+
 
 class Student : public Person
 {

@@ -4,7 +4,7 @@
 Teacher::Teacher(const std::string &name, int age, const std::string office_num)
     : Person(name, age), office_num_(office_num)
 {
-    std::cout << "Teacher created:  " << name_ << std::endl;
+    std::cout << "Teacher created: " << name_ << std::endl;
 }
 
 Teacher::~Teacher()

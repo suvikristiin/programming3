@@ -29,6 +29,7 @@ void Teacher::remove_course(const std::string &course)
 
 void Teacher::print(std::ostream &output) const
 {
+    Person::print(output);
     output << "*** " << name_ << ": ";
 
     if (courses_.empty()) {

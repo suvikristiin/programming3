@@ -14,7 +14,10 @@ Student::~Student()
 
 void Student::print(std::ostream &output) const
 {
+    Person::print(output);
+
     output << "+++ " << student_num_ << ": ";
+
 
     if (courses_.empty()) {
         output << "No courses completed";

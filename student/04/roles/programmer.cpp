@@ -22,7 +22,7 @@ void Programmer::print(std::ostream &output) const
     if (skills_.empty()) {
         output << "No skills" <<std::endl;
     } else {
-        output << "Skills:  ";
+        output << "Skills: ";
         unsigned int i = 0;
         for (const std::string& skill : skills_) {
             output << skill;

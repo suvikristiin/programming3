@@ -32,7 +32,6 @@ void Person::print(std::ostream &output) const
         }
 
     }
-    output <<std::endl;
 }
 
 void Person::print_name(std::ostream &output) const

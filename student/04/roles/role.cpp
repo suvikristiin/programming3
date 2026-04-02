@@ -13,5 +13,5 @@ Role::~Role()
 
 void Role::print(std::ostream &output) const
 {
-    output << from_year_ << std::endl;
+    output << "Role started at " << from_year_ << std::endl;
 }

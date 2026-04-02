@@ -9,7 +9,7 @@ public:
     Programmer(int from_year);
     virtual ~Programmer();
     void add_skill(const std::string& skill);
-    void print(std::ostream& output) const override;
+    void print(std::ostream& output) const;
 private:
     std::set<std::string> skills_;
 };

@@ -8,7 +8,7 @@ public:
     Player(int from_year);
     virtual ~Player();
     void add_instrument(const std::string& instrument);
-    void print(std::ostream& output) const override;
+    void print(std::ostream& output) const;
 private:
     std::string instrument_;
 };

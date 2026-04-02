@@ -28,6 +28,7 @@ void Student::print(std::ostream &output) const
             if (i+1 < courses_.size()) {
                 output << ", ";
             }
+            i++;
         }
     }
 

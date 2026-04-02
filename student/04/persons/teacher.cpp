@@ -30,7 +30,7 @@ void Teacher::remove_course(const std::string &course)
 void Teacher::print(std::ostream &output) const
 {
     Person::print(output);
-    output << "*** " << name_ << ": ";
+    output << "*** " << office_num_ << ": ";
 
     if (courses_.empty()) {
         output << "No responsibilities";
@@ -38,9 +38,10 @@ void Teacher::print(std::ostream &output) const
         unsigned int i = 0;
         for (std::string course : courses_) {
             output << course;
-            if (i+1 < courses_.size()) {
+            if (i < courses_.size()-1) {
                 output << ", ";
             }
+            i++;
         }
     }
 

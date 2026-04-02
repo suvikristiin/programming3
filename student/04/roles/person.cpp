@@ -28,7 +28,7 @@ void Person::print(std::ostream &output) const
     } else {
         for (Role* role : roles_) {
             output << "Role started at ";
-            role->Role::print(std::cout);
+            role->print(output);
         }
 
     }

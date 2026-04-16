@@ -70,7 +70,7 @@ bool DateTime::isLegal() const
 {
 
 
-    if(hour_ < 0 || hour_ > 24) {
+    if(hour_ < 0 || hour_ > 23) {
         return false;
     }
 

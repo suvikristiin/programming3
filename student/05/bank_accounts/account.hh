@@ -50,6 +50,12 @@ private:
     // In other words, running_number_ is a class-wide attribute, there is
     // no own copies of it for each object of the class.
     static int running_number_;
+    std::string iban_;
+
+    std::string owner_;
+
+protected:
+    double balance_;
 };
 
 #endif // ACCOUNT_HH

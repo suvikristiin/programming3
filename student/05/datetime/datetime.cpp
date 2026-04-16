@@ -8,7 +8,7 @@ DateTime::DateTime(int year, int month, int day, int hour, int minute, int secon
 {
 
     if (!isLegal()) {
-        string message = "Illegal time " + toIsoFormat();
+        string message = "Illegal time " + to_string(hour_) + ":" + to_string(minute_) + ":" + to_string(second_);
         throw DateException(message.c_str());
     }
 }

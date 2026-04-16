@@ -9,7 +9,7 @@ Date::Date(int year, int month, int day) :
     year_(year), month_(month), day_(day)
 {
     if (!isLegal()) {
-        string message = "Illegal date " + Date::toString();
+        string message = "Illegal date " + toIsoFormat();
         throw DateException(message.c_str());
     }
 }

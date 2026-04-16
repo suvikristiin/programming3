@@ -18,6 +18,21 @@ DateTime::~DateTime()
 
 }
 
+int DateTime::getHour()
+{
+    return hour_;
+}
+
+int DateTime::getMinute()
+{
+    return minute_;
+}
+
+int DateTime::getSecond()
+{
+    return second_;
+}
+
 string DateTime::toString()
 {
     return Date::toString() + " " + toIsoFormat();
@@ -40,7 +55,7 @@ string DateTime::toIsoFormat() const
         secondZero = "0";
     }
 
-    string dayIsoFormat = hourZero + to_string(hour_) + "." + minuteZero + to_string(minute_) + "." + secondZero + to_string(second_);
+    string dayIsoFormat = hourZero + to_string(hour_) + ":" + minuteZero + to_string(minute_) + ":" + secondZero + to_string(second_);
     return dayIsoFormat;;
 
 }

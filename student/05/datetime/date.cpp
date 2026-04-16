@@ -51,8 +51,8 @@ string Date::toIsoFormat() const
         monthZero = "0";
     }
 
-    string dayIsoFormat = to_string(day_) + "."  + monthZero + to_string(month_) + "." + dayZero + to_string(year_);
-    return dayIsoFormat;;
+    string dayIsoFormat = dayZero  + to_string(day_) + "."  + monthZero + to_string(month_) + "." + to_string(year_);
+    return dayIsoFormat;
 
 }
 

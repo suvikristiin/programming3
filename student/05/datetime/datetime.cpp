@@ -8,7 +8,12 @@ DateTime::DateTime(int year, int month, int day, int hour, int minute, int secon
 {
 
     if (!isLegal()) {
-        string message = "Illegal time " + to_string(hour_) + ":" + to_string(minute_) + ":" + to_string(second_);
+        std::string secondd = (second_ < 10 ? "0" : "") + std::to_string(second_);
+        std::string minutee = (minute_ < 10 ? "0" : "") + std::to_string(minute_);
+        std::string hourr = (hour_ < 10 ? "0" : "") + std::to_string(hour_);
+        std::string result = hourr + ":" + minutee + ":" + secondd;
+
+        string message = "Illegal time " + result;
         throw DateException(message.c_str());
     }
 }

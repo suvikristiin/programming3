@@ -9,7 +9,7 @@ Date::Date(int year, int month, int day) :
     year_(year), month_(month), day_(day)
 {
     if (!isLegal()) {
-        string message = "Illegal date " + to_string(day_) + "." + to_string(month_) + "." + to_string(year_);
+        string message = "Illegal date " + Date::toString();
         throw DateException(message.c_str());
     }
 }
@@ -36,7 +36,12 @@ int Date::getDay()
 
 string Date::toString()
 {
-    return toIsoFormat();
+    string day = (day_ < 10 ? "0" : "") + std::to_string(day_);
+    string month = (month_ < 10 ? "0" : "") + std::to_string(month_);
+    string year = std::to_string(year_);
+
+    std::string result = day + "." + month + "." +year;
+    return result;
 }
 
 string Date::toIsoFormat() const

@@ -1,6 +1,6 @@
 #include "shape.hh"
-//#include "circle.hh"
-//#include "rectangle.hh"
+#include "circle.hh"
+#include "rectangle.hh"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -40,7 +40,14 @@ vector<string> split(const string& str, const char delimiter,
 // (by calling their print functions).
 void print_shapes(vector<shared_ptr<Shape>> shapes)
 {
+    int running_number = 1;
     // TODO: Write implementation here
+    for (auto shape : shapes) {
+        shape->print(running_number);
+
+        running_number++;
+        cout <<endl;
+    }
 }
 
 int main()
@@ -55,7 +62,6 @@ int main()
         return EXIT_FAILURE;
     }
     string line = "";
-
     vector<shared_ptr<Shape>> shapes;
 
     // Goes through the input file line by line and splits each line.
@@ -69,7 +75,17 @@ int main()
         // - If there is a single double value, create a Circle object.
         // - If there are two double values, create a Rectangle object.
         // - In both cases, push the newly created object to the vector shapes.
+        vector<string> parts = split(line, ' ', true);
 
+        if (parts.size() == 2) {
+            shared_ptr<Shape> circle = make_shared<Circle>(parts.at(0).at(0), stod(parts.at(1)));
+            shapes.push_back(circle);
+        }
+
+        if (parts.size() == 3) {
+            shared_ptr<Shape> rectangle = make_shared<Rectangle>(parts.at(0).at(0), stod(parts.at(1)),  stod(parts.at(2)));
+            shapes.push_back(rectangle);
+        }
     }
     print_shapes(shapes);
     return 0;

@@ -26,4 +26,14 @@ void Shape::paint(char color)
     }
 }
 
+Color Shape::get_color()
+{
+    return color_;
+}
+
+void Shape::print(int running_number)
+{
+    cout << "Shape " << running_number<< ":"<<endl;
+}
+
 

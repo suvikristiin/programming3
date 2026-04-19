@@ -30,7 +30,10 @@ public:
     void paint(char color);
 
     // TODO Add missing functions here
-
+    Color get_color();
+    virtual double area() = 0;
+    virtual double circumference() = 0;
+    virtual void print(int running_number);
 private:
     Color color_;
 };

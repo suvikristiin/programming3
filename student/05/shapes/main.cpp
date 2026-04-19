@@ -43,10 +43,10 @@ void print_shapes(vector<shared_ptr<Shape>> shapes)
     int running_number = 1;
     // TODO: Write implementation here
     for (auto shape : shapes) {
+        cout <<endl;
         shape->print(running_number);
 
         running_number++;
-        cout <<endl;
     }
 }
 

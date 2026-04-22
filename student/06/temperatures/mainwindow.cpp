@@ -34,11 +34,13 @@ void MainWindow::on_pushButtonConvert_clicked()
     QString result_s;
 
     if (scale_ == "Celsius") {
-        int result_celcius = 1.8 * input_degrees_ + 32.0;
-        result_s = QString::number(result_celcius);
+        double result_celcius = 1.8 * input_degrees_ + 32.0;
+        int result_int_c = round(result_celcius);
+        result_s = QString::number(result_int_c);
     } else if (scale_ == "Fahrenheit") {
-        int result_fahr = (input_degrees_ - 32.0) / 1.8;
-        result_s = QString::number(result_fahr);
+        double result_fahr = (input_degrees_ - 32.0) / 1.8;
+        int result_int_f = round(result_fahr);
+        result_s = QString::number(result_int_f);
     } else {
         result_s = "Unknown scale";
     }

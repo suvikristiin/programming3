@@ -35,13 +35,11 @@ void MainWindow::on_pushButtonConvert_clicked()
     input_degrees_ = ui->spinBoxDegrees->value();
 
     if (scale_ == "Celsius") {
-        double result_celcius = 1.8 * input_degrees_ + 32.0;
-        int result_int_c = round(result_celcius);
-        result_s = QString::number(result_int_c);
+        int result_celcius = 1.8 * input_degrees_ + 32.0;
+        result_s = QString::number(result_celcius);
     } else if (scale_ == "Fahrenheit") {
-        double result_fahr = (input_degrees_ - 32.0) / 1.8;
-        int result_int_f = round(result_fahr);
-        result_s = QString::number(result_int_f);
+        int result_fahr = (input_degrees_ - 32.0) / 1.8;
+        result_s = QString::number(result_fahr);
     } else {
         result_s = "Unknown scale";
     }

@@ -22,8 +22,7 @@ void MainWindow::on_lineEditScale_editingFinished()
 
 void MainWindow::on_spinBoxDegrees_valueChanged(int arg1)
 {
-
-
+    input_degrees_ = arg1;
 }
 
 

@@ -16,13 +16,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_lineEditScale_editingFinished()
 {
-    scale_ = ui->lineEditScale->text();
+
 }
 
 
 void MainWindow::on_spinBoxDegrees_valueChanged(int arg1)
 {
-    input_degrees_ = arg1;
+
 
 }
 
@@ -32,6 +32,8 @@ void MainWindow::on_spinBoxDegrees_valueChanged(int arg1)
 void MainWindow::on_pushButtonConvert_clicked()
 {
     QString result_s;
+    scale_ = ui->lineEditScale->text();
+    input_degrees_ = ui->spinBoxDegrees->value();
 
     if (scale_ == "Celsius") {
         double result_celcius = 1.8 * input_degrees_ + 32.0;

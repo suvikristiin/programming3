@@ -34,7 +34,7 @@ void MainWindow::on_spinBoxP2_valueChanged(int arg1)
 
 void MainWindow::on_spinBoxB_valueChanged(int arg1)
 {
-
+    b = arg1;
 }
 
 
@@ -45,7 +45,7 @@ void MainWindow::on_spinBoxE_valueChanged(int arg1)
 
 void MainWindow::on_pushButtonCalculate_clicked()
 {
-    int b = ui->spinBoxB->value();
+    b = ui->spinBoxB->value();
 
     int totalN = n + b;
 

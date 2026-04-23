@@ -55,7 +55,7 @@ void MainWindow::on_pushButtonCalculate_clicked()
 
     int result_excercises = score_from_weekly_exercises(totalN);
     int result_projects = score_from_projects(p1, p2);
-    int total_result = calculate_total_grade(n, p1, p2, e);
+    int total_result = calculate_total_grade(totalN, p1, p2, e);
 
     QString result =
         "W-Score: " + QString::number(result_excercises) +

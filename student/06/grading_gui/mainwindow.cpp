@@ -49,5 +49,11 @@ void MainWindow::on_pushButtonCalculate_clicked()
     int result_projects = score_from_projects(p1, p2);
     int total_result = calculate_total_grade(n, p1, p2, e);
 
-    ui->textBrowser->setText("W-Score: " + QString::number(result_excercises) + "\nP-Score: " + QString::number(result_projects) + "\nTotal grade: " + QString::number(total_result));
+    QString result =
+        "W-Score: " + QString::number(result_excercises) +
+        "\nP-Score: " + QString::number(result_projects) +
+        "\nTotal grade: " + QString::number(total_result);
+
+    ui->textBrowser->setPlainText(result);
+
 }

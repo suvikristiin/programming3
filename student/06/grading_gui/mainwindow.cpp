@@ -34,7 +34,7 @@ void MainWindow::on_spinBoxP2_valueChanged(int arg1)
 
 void MainWindow::on_spinBoxB_valueChanged(int arg1)
 {
-    b = arg1;
+
 }
 
 
@@ -45,7 +45,15 @@ void MainWindow::on_spinBoxE_valueChanged(int arg1)
 
 void MainWindow::on_pushButtonCalculate_clicked()
 {
-    int result_excercises = score_from_weekly_exercises(n);
+    int b = ui->spinBoxB->value();
+
+    int totalN = n + b;
+
+    if (totalN > 500) {
+        totalN = 500;
+    }
+
+    int result_excercises = score_from_weekly_exercises(totalN);
     int result_projects = score_from_projects(p1, p2);
     int total_result = calculate_total_grade(n, p1, p2, e);
 

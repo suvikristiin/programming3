@@ -24,13 +24,13 @@ MainWindow::MainWindow(QWidget *parent)
     gLayout->addWidget(spinBoxRed_,0,2);
 
     spinBoxGreen_ = new QSpinBox();
-    spinBoxRed_->setObjectName("spinBoxGreen");
+    spinBoxGreen_->setObjectName("spinBoxGreen");
     horizontalSliderGreen->setObjectName("horizontalSliderGreen");
     gLayout->addWidget(horizontalSliderGreen,1,1);
     gLayout->addWidget(spinBoxGreen_,1,2);
 
     spinBoxBlue_ = new QSpinBox();
-    spinBoxRed_->setObjectName("spinBoxBlue");
+    spinBoxBlue_->setObjectName("spinBoxBlue");
     horizontalSliderBlue->setObjectName("horizontalSliderBlue");
     gLayout->addWidget(horizontalSliderBlue,2,1);
     gLayout->addWidget(spinBoxBlue_,2,2);

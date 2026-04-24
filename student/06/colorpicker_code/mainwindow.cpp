@@ -77,7 +77,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(horizontalSliderBlue, &QSlider::valueChanged, this, &MainWindow::onColorChanged);
 
 
-
     onColorChanged();
 }
 

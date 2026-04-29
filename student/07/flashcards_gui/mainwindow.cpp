@@ -3,7 +3,6 @@
 #include <iostream>
 
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -24,6 +23,16 @@ void MainWindow::on_loadFileButton_clicked()
     manager_->read_file(filename.toStdString());
 
     refreshDeckList();
+}
+
+void MainWindow::refreshDeckList()
+{
+    vector<string> deck_names = manager_->get_deck_names();
+
+    for(auto deck_name : deck_names)
+    {
+        ui->decksListWidget->addItem(QString::fromStdString(deck_name));
+    }
 }
 
 

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "deckmanager.hh"
+#include <QListWidgetItem>
 
 namespace Ui {
 class MainWindow;
@@ -22,7 +23,11 @@ private slots:
 private:
     Ui::MainWindow *ui;
     shared_ptr<DeckManager> manager_;
+    shared_ptr<Deck> deck_;
     void refreshDeckList();
+    void onDeckClicked(QListWidgetItem* item);
+    void onCardClicked(QListWidgetItem* item);
+    void refreshCardList();
 };
 
 #endif // MAINWINDOW_HH

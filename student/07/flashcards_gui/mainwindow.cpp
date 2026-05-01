@@ -1,5 +1,6 @@
 #include "mainwindow.hh"
 #include "ui_mainwindow.h"
+#include "utils.hh"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -82,4 +83,20 @@ void MainWindow::onCardClicked(QListWidgetItem* item) {
 
 
 
+
+
+void MainWindow::on_addDeckPushButton_clicked()
+{
+    QString new_deck_name = ui->deckNameLineEdit->text();
+    QString input_fields = ui->deckFieldsLineEdit->text();
+
+    Fields deck_fields = split(input_fields.toStdString(), ' ');
+
+    if (manager_->deck_exists(new_deck_name.toStdString()) && deck_fields.empty()) {
+        return;
+    }
+
+    manager_->add_deck(new_deck_name.toStdString(), deck_fields);
+    refreshDeckList();
+}
 

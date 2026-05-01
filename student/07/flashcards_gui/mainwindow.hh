@@ -20,6 +20,8 @@ public:
 private slots:
     void on_loadFileButton_clicked();
 
+    void on_addDeckPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     shared_ptr<DeckManager> manager_;

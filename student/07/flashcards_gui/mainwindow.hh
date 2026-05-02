@@ -22,6 +22,8 @@ private slots:
 
     void on_addDeckPushButton_clicked();
 
+    void on_removeDeckPushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     shared_ptr<DeckManager> manager_;

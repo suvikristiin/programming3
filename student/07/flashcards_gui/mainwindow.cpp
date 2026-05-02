@@ -56,20 +56,26 @@ void MainWindow::onDeckClicked(QListWidgetItem* item)
 void MainWindow::refreshCardList() {
 
     ui->cardsListWidget->clear();
+    QString fields_text;
+
+    shared_ptr<Fields> fields = deck_->get_fields();
+    for (const string& field : *fields) {
+        fields_text += QString::fromStdString(field + " | ");
+    }
+
+    ui->cardFieldstextBrowser->setText(fields_text);
 
     for(auto card : deck_->get_cards())
     {
-        Fields fields = card->get_fields();
-
         Fields return_definitions;
 
-        card->get_definitions(fields, return_definitions);
+        card->get_definitions(*fields, return_definitions);
 
         QString definition_text = "";
 
-        for (size_t i = 0; i < fields.size(); ++i)
+        for (size_t i = 0; i < return_definitions.size(); ++i)
         {
-            definition_text += QString::fromStdString(fields[i] + ": " + return_definitions[i] + " | ");
+            definition_text += QString::fromStdString(return_definitions[i] + " | ");
         }
 
         ui->cardsListWidget->addItem(definition_text);
@@ -98,5 +104,20 @@ void MainWindow::on_addDeckPushButton_clicked()
 
     manager_->add_deck(new_deck_name.toStdString(), deck_fields);
     refreshDeckList();
+}
+
+
+void MainWindow::on_removeDeckPushButton_clicked()
+{
+    QString remove_deck_name = ui->removeDeckLineEdit->text();
+
+    if (!manager_->remove_deck(remove_deck_name.toStdString())) {
+        return;
+    }
+
+    manager_->remove_deck(remove_deck_name.toStdString());
+    refreshDeckList();
+    ui->cardFieldstextBrowser->clear();
+    ui->cardsListWidget->clear();
 }
 

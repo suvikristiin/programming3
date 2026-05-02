@@ -157,3 +157,9 @@ void MainWindow::on_removeCardPushButton_clicked()
     ui->infoLabel->setText("Kortti numero" + QString::number(card_id) + " poistettu!");
 }
 
+
+void MainWindow::on_closePushButton_clicked()
+{
+    QApplication::quit();
+}
+

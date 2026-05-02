@@ -26,6 +26,8 @@ private slots:
 
     void on_removeCardPushButton_clicked();
 
+    void on_closePushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     shared_ptr<DeckManager> manager_;

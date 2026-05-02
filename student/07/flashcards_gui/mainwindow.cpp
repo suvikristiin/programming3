@@ -78,13 +78,15 @@ void MainWindow::refreshCardList() {
             definition_text += QString::fromStdString(return_definitions[i] + " | ");
         }
 
-        ui->cardsListWidget->addItem(definition_text);
+        QListWidgetItem* item = new QListWidgetItem(definition_text);
+        item->setData(Qt::UserRole, card->get_id());
+        ui->cardsListWidget->addItem(item);
 
     }
 }
 
 void MainWindow::onCardClicked(QListWidgetItem* item) {
-    deck_ = manager_->get_deck(item->text().toStdString());
+    Q_UNUSED(item);
 }
 
 
@@ -109,15 +111,49 @@ void MainWindow::on_addDeckPushButton_clicked()
 
 void MainWindow::on_removeDeckPushButton_clicked()
 {
-    QString remove_deck_name = ui->removeDeckLineEdit->text();
+    QListWidgetItem* item = ui->decksListWidget->currentItem();
 
-    if (!manager_->remove_deck(remove_deck_name.toStdString())) {
+    if (item == nullptr)
+    {
+        ui->infoLabel->setText("Valitse poistettava pakka!");
         return;
     }
 
-    manager_->remove_deck(remove_deck_name.toStdString());
+    QString deck_name_q = ui->decksListWidget->currentItem()->text();
+    string deck_name = deck_name_q.toStdString();
+
+    if (!manager_->remove_deck(deck_name)) {
+        return;
+    }
+
     refreshDeckList();
     ui->cardFieldstextBrowser->clear();
     ui->cardsListWidget->clear();
+
+    ui->infoLabel->setText("Pakka " + deck_name_q + " poistettu!");
+}
+
+
+void MainWindow::on_removeCardPushButton_clicked()
+{
+    QListWidgetItem* item = ui->cardsListWidget->currentItem();
+
+    if (item == nullptr)
+    {
+        ui->infoLabel->setText("Valitse kortti!");
+        return;
+    }
+
+    unsigned int card_id =
+        item->data(Qt::UserRole).toUInt();
+
+    QString deck_name_q = ui->decksListWidget->currentItem()->text();
+    string deck_name = deck_name_q.toStdString();
+
+
+    manager_->remove_card(deck_name, card_id);
+
+    refreshCardList();
+    ui->infoLabel->setText("Kortti numero" + QString::number(card_id) + " poistettu!");
 }
 

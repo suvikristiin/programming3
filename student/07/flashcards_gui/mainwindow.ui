@@ -6,19 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1067</width>
-    <height>600</height>
+    <width>1003</width>
+    <height>602</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>1003</width>
+     <height>551</height>
+    </size>
+   </property>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>10</y>
+      <x>100</x>
+      <y>20</y>
       <width>58</width>
       <height>16</height>
      </rect>
@@ -30,96 +36,14 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>10</y>
+      <x>420</x>
+      <y>20</y>
       <width>58</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
      <string>Cards</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="addDeckPushButton">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>400</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add deck</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="loadFileButton">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>270</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Load</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>240</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Load deck from file</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="fileNameEdit">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>280</y>
-      <width>91</width>
-      <height>21</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>350</y>
-      <width>111</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add new deck</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="deckNameLineEdit">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>390</y>
-      <width>113</width>
-      <height>21</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="deckFieldsLineEdit">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>420</y>
-      <width>113</width>
-      <height>21</height>
-     </rect>
     </property>
    </widget>
    <widget class="QListWidget" name="decksListWidget">
@@ -142,50 +66,11 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>390</y>
-      <width>81</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Deck name</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>420</y>
-      <width>58</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Fields</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_7">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>280</y>
-      <width>58</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>File name</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="removeDeckPushButton">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>330</y>
+      <x>160</x>
+      <y>240</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -197,7 +82,7 @@
    <widget class="QLabel" name="infoLabel">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>340</x>
       <y>240</y>
       <width>321</width>
       <height>20</height>
@@ -210,8 +95,8 @@
    <widget class="QPushButton" name="removeCardPushButton">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>300</y>
+      <x>790</x>
+      <y>230</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -223,7 +108,7 @@
    <widget class="QPushButton" name="closePushButton">
     <property name="geometry">
      <rect>
-      <x>940</x>
+      <x>890</x>
       <y>500</y>
       <width>100</width>
       <height>32</height>
@@ -233,13 +118,119 @@
      <string>Close</string>
     </property>
    </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>370</y>
+      <width>226</width>
+      <height>106</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Deck name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="deckNameLineEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Fields</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="deckFieldsLineEdit"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="addDeckPushButton">
+       <property name="text">
+        <string>Add deck</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>370</y>
+      <width>223</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>File name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="fileNameEdit"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="loadFileButton">
+       <property name="text">
+        <string>Load</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>350</y>
+      <width>125</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add new deck</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>350</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add new deck</string>
+    </property>
+   </widget>
    <widget class="QWidget" name="cardWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>680</x>
+      <x>670</x>
       <y>40</y>
-      <width>301</width>
-      <height>181</height>
+      <width>311</width>
+      <height>191</height>
      </rect>
     </property>
    </widget>
@@ -249,7 +240,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1067</width>
+     <width>1003</width>
      <height>24</height>
     </rect>
    </property>

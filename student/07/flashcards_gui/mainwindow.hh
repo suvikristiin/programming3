@@ -41,7 +41,7 @@ private:
     void onDeckClicked(QListWidgetItem* item);
     void onCardClicked(QListWidgetItem* item);
     void refreshCardList();
-    void showCardWidget(CardWidget* widget);
+    void showCardWidget(QWidget* cardWidget);
 };
 
 #endif // MAINWINDOW_HH

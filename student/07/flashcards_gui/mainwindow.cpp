@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+   ui->cardWidget->setLayout(new QVBoxLayout());
+
     manager_ = make_shared<DeckManager>();
     connect(ui->decksListWidget,
             &QListWidget::itemClicked,
@@ -53,7 +55,7 @@ void MainWindow::refreshDeckList()
 
 }
 
-void MainWindow::showCardWidget(CardWidget* widget)
+void MainWindow::showCardWidget(QWidget* widget)
 {
     QLayout* layout = ui->cardWidget->layout();
 

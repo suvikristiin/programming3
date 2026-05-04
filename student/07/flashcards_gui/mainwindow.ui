@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1003</width>
-    <height>602</height>
+    <height>936</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,232 +20,152 @@
      <height>551</height>
     </size>
    </property>
-   <widget class="QLabel" name="label">
+   <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>20</y>
-      <width>58</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Decks</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>20</y>
-      <width>58</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Cards</string>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="decksListWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
+      <x>80</x>
       <y>40</y>
-      <width>256</width>
-      <height>192</height>
+      <width>841</width>
+      <height>641</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QListWidget" name="cardsListWidget">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>40</y>
-      <width>391</width>
-      <height>191</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="removeDeckPushButton">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>240</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Remove deck</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="infoLabel">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>240</y>
-      <width>321</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="removeCardPushButton">
-    <property name="geometry">
-     <rect>
-      <x>790</x>
-      <y>230</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Remove card</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="closePushButton">
-    <property name="geometry">
-     <rect>
-      <x>890</x>
-      <y>500</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Close</string>
-    </property>
-   </widget>
-   <widget class="QFrame" name="frame">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>370</y>
-      <width>226</width>
-      <height>106</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
-    </property>
-    <layout class="QFormLayout" name="formLayout">
+    <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,1,1">
+     <item row="1" column="1">
+      <widget class="QListWidget" name="cardsListWidget"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QFrame" name="frame_2">
+       <property name="frameShape">
+        <enum>QFrame::Shape::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Shadow::Raised</enum>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>File name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="fileNameEdit"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="loadFileButton">
+          <property name="text">
+           <string>Load</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Deck name</string>
+        <string>Decks</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="deckNameLineEdit"/>
+     <item row="5" column="1">
+      <widget class="QFrame" name="frame">
+       <property name="frameShape">
+        <enum>QFrame::Shape::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Shadow::Raised</enum>
+       </property>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Deck name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="deckNameLineEdit"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Fields</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="deckFieldsLineEdit"/>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="addDeckPushButton">
+          <property name="text">
+           <string>Add deck</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_6">
+      <widget class="QListWidget" name="decksListWidget"/>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="removeCardPushButton">
        <property name="text">
-        <string>Fields</string>
+        <string>Remove card</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="deckFieldsLineEdit"/>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Add new deck</string>
+       </property>
+      </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QPushButton" name="addDeckPushButton">
+      <widget class="QLabel" name="infoLabel">
        <property name="text">
-        <string>Add deck</string>
+        <string/>
        </property>
       </widget>
      </item>
-    </layout>
-   </widget>
-   <widget class="QFrame" name="frame_2">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>370</y>
-      <width>223</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Raised</enum>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_7">
+     <item row="4" column="1">
+      <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>File name</string>
+        <string>Add new deck</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="QPushButton" name="closePushButton">
+       <property name="text">
+        <string>Close</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="fileNameEdit"/>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="loadFileButton">
+      <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Load</string>
+        <string>Cards</string>
        </property>
       </widget>
      </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="removeDeckPushButton">
+       <property name="text">
+        <string>Remove deck</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QWidget" name="cardWidget" native="true"/>
+     </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>350</y>
-      <width>125</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add new deck</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>350</y>
-      <width>111</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add new deck</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="cardWidget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>40</y>
-      <width>311</width>
-      <height>191</height>
-     </rect>
-    </property>
-   </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1003</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

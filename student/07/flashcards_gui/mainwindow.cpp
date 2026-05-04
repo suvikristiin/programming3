@@ -10,8 +10,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-   ui->cardWidget->setLayout(new QVBoxLayout());
-
     manager_ = make_shared<DeckManager>();
     connect(ui->decksListWidget,
             &QListWidget::itemClicked,
@@ -47,24 +45,22 @@ void MainWindow::refreshDeckList()
     ui->decksListWidget->clear();
     vector<string> deck_names = manager_->get_deck_names();
 
-    for(auto deck_name : deck_names)
+    for(const string& deck_name : deck_names)
     {
         ui->decksListWidget->addItem(QString::fromStdString(deck_name));
 
     }
-
 }
 
 void MainWindow::showCardWidget(QWidget* widget)
 {
     QLayout* layout = ui->cardWidget->layout();
+    QLayoutItem* child;
 
     if (!layout) {
         layout = new QVBoxLayout(ui->cardWidget);
-        ui->cardWidget->setLayout(layout);
     }
 
-    QLayoutItem* child;
     while ((child = layout->takeAt(0)) != nullptr) {
         if (child->widget()) {
             child->widget()->deleteLater();
@@ -98,7 +94,6 @@ void MainWindow::onDeckClicked(QListWidgetItem* item)
 void MainWindow::refreshCardList() {
 
     ui->cardsListWidget->clear();
-    QString fields_text;
 
     if (deck_ == nullptr)
     {

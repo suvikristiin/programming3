@@ -14,7 +14,7 @@ CardWidget::CardWidget(shared_ptr<Card> card,
     layout_(new QVBoxLayout(this)),
     actionButton_(nullptr)
 {
-    setLayout(layout_);
+
     buildUI();
 }
 

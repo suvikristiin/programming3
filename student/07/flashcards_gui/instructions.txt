@@ -1,0 +1,40 @@
+Program functionalities
+- Ability to view all decks added to the program
+- Ability to view all cards within a selected deck
+- Ability to load decks and cards from a file
+- Ability to create a new deck through the graphical user interface
+- Ability to remove a deck
+- Ability to remove a specific card from a deck
+- Ability to exit the program
+
+Using the inherited CardWidget component, the following functionalities are implemented:
+- Ability to add a new card
+- Ability to edit definitions of an existing cardInstructions
+
+Loading decks and cards from a file- Enter the file name into the field labeled "File name"
+- Press the "Load File" button
+- The deck should appear in the left-side list displaying all decks
+- When clicking the deck, its cards will appear in the middle Cards listAdding a new deck
+- Enter the name of the new deck into the field labeled "Deck name"
+- The name must be unique (no duplicates allowed)
+- Enter the field types into the field labeled "Fields"
+- Separate fields with a space
+- Press the "Add deck" buttonRemoving a deck
+- Select the deck by clicking it
+- Press "Remove deck"
+Viewing decks and cards
+- Select a deck from the deck list
+- The cards of the selected deck will appear in the card list
+- Click a card to display its details in the CardWidget on the right
+- From there, you can proceed to edit the cardAdding a new card
+- Select the deck where you want to add the card
+- Fill in the card definitions in the CardWidget input fields
+- Each field is labeled with its type
+- Press "Add card"Editing an existing card
+- Select the card from the card list
+- Press the "Edit" button
+- Modify the card definitions in the fields
+- Press "Save changes"Removing a card
+- Select the card from the card list
+- Press "Remove card"Closing the program
+- Press the "Close" button

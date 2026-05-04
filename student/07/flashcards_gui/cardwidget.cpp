@@ -10,12 +10,11 @@ CardWidget::CardWidget(shared_ptr<Card> card,
     : QWidget(parent),
     card_(card),
     fields_(fields),
-    mode_(mode),
-    layout_(new QVBoxLayout(this)),
-    actionButton_(nullptr)
+    mode_(mode)
 {
-
-    buildUI();
+    layout_ = new QVBoxLayout(this);
+    action_button_ = nullptr;
+    build_UI();
 }
 
 CardWidget::~CardWidget()
@@ -23,149 +22,126 @@ CardWidget::~CardWidget()
 
 }
 
-void CardWidget::clearUI()
-{
-    while (QLayoutItem* item = layout_->takeAt(0))
-    {
-        if (QWidget* w = item->widget())
-        {
+void CardWidget::clear_UI() {
+
+    while (QLayoutItem* item = layout_->takeAt(0)) {
+        if (QWidget* w = item->widget()) {
             w->setParent(nullptr);
             w->deleteLater();
         }
+
         delete item;
     }
 
-    fieldWidgets_.clear();
-    actionButton_ = nullptr;
+    field_widgets_.clear();
+    action_button_ = nullptr;
 }
 
-void CardWidget::buildUI()
-{
-    clearUI();
+void CardWidget::build_UI() {
+    clear_UI();
 
     if (mode_ == VIEW)
-        buildViewMode();
+        build_view_mode();
     else if (mode_ == EDIT)
-        buildEditMode();
+        build_edit_mode();
     else if (mode_ == ADD)
-        buildAddMode();
+        build_add_mode();
 }
 
-void CardWidget::buildViewMode()
-{
-    Fields values;
+void CardWidget::build_view_mode() {
 
+    Fields values;
     card_->get_definitions(*fields_, values);
 
-    for (size_t i = 0; i < fields_->size(); ++i)
-    {
-        QLabel* label = new QLabel(
-            QString::fromStdString(fields_->at(i) + ": " +
-                                   values.at(i)));
-
+    for (size_t i = 0; i < fields_->size(); ++i) {
+        QLabel* label = new QLabel(QString::fromStdString(fields_->at(i) + ": " + values.at(i)));
         layout_->addWidget(label);
-        fieldWidgets_.push_back(label);
+        field_widgets_.push_back(label);
     }
 
-    if (actionButton_ == nullptr) {
-        actionButton_ = new QPushButton("Edit");
-        layout_->addWidget(actionButton_);
+    if (action_button_ == nullptr) {
+        action_button_ = new QPushButton("Edit");
+        layout_->addWidget(action_button_);
     }
 
-    connect(actionButton_, &QPushButton::clicked,
-            this, &CardWidget::onEditClicked);
+    connect(action_button_, &QPushButton::clicked,
+            this, &CardWidget::on_edit_clicked);
 }
 
-void CardWidget::buildEditMode()
-{
+void CardWidget::build_edit_mode() {
+
     Fields values;
     card_->get_definitions(*fields_, values);
 
-    for (size_t i = 0; i < fields_->size(); ++i)
-    {
-        QLineEdit* edit = new QLineEdit(
-            QString::fromStdString(values.at(i)));
-
+    for (size_t i = 0; i < fields_->size(); ++i) {
+        QLineEdit* edit = new QLineEdit(QString::fromStdString(values.at(i)));
         layout_->addWidget(edit);
-        fieldWidgets_.push_back(edit);
+        field_widgets_.push_back(edit);
     }
 
-    actionButton_ = new QPushButton("Save changes");
-    layout_->addWidget(actionButton_);
-
-    connect(actionButton_, &QPushButton::clicked,
-            this, &CardWidget::onSaveClicked);
+    action_button_ = new QPushButton("Save changes");
+    layout_->addWidget(action_button_);
+    connect(action_button_, &QPushButton::clicked,
+            this, &CardWidget::on_save_clicked);
 }
 
-void CardWidget::buildAddMode()
-{
-    for (size_t i = 0; i < fields_->size(); ++i)
-    {
+void CardWidget::build_add_mode() {
+
+    for (size_t i = 0; i < fields_->size(); ++i) {
         QHBoxLayout* rowLayout = new QHBoxLayout();
-
-        QLabel* label = new QLabel(
-            QString::fromStdString(fields_->at(i)), this);
-
+        QLabel* label = new QLabel(QString::fromStdString(fields_->at(i)), this);
         QLineEdit* edit = new QLineEdit(this);
-
         rowLayout->addWidget(label);
         rowLayout->addWidget(edit);
-
-
         layout_->addLayout(rowLayout);
-
-        fieldWidgets_.push_back(edit);
+        field_widgets_.push_back(edit);
     }
 
-    actionButton_ = new QPushButton("Add card", this);
-    layout_->addWidget(actionButton_);
-
-    connect(actionButton_, &QPushButton::clicked,
-            this, &CardWidget::onAddClicked);
+    action_button_ = new QPushButton("Add card", this);
+    layout_->addWidget(action_button_);
+    connect(action_button_, &QPushButton::clicked,
+            this, &CardWidget::on_add_clicked);
 }
 
-void CardWidget::onAddClicked()
-{
+void CardWidget::on_add_clicked() {
+
     Fields values;
 
-    for (QWidget* w : fieldWidgets_)
-    {
+    for (QWidget* w : field_widgets_) {
         QLineEdit* edit = qobject_cast<QLineEdit*>(w);
-        if (edit)
-        {
+
+        if (edit) {
             values.push_back(edit->text().toStdString());
         }
     }
 
-    emit addCardRequested(values);
+    emit add_card_requested(values);
 }
 
-void CardWidget::onEditClicked()
-{
+void CardWidget::on_edit_clicked() {
+
     mode_ = EDIT;
-    buildUI();
+    build_UI();
 }
 
-void CardWidget::onSaveClicked()
-{
+void CardWidget::on_save_clicked() {
+
     Fields new_values;
 
-    for (auto w : fieldWidgets_)
-    {
+    for (auto w : field_widgets_) {
         QLineEdit* edit = qobject_cast<QLineEdit*>(w);
-        if (edit)
-        {
+
+        if (edit) {
             new_values.push_back(edit->text().toStdString());
         }
     }
 
-    if (mode_ == EDIT)
-    {
-        emit cardUpdated(new_values);
+    if (mode_ == EDIT) {
+        emit card_updated(new_values);
     }
 
     mode_ = VIEW;
-    buildUI();
+    build_UI();
 }
 
 

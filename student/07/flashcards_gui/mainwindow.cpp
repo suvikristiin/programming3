@@ -9,17 +9,17 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     manager_ = make_shared<DeckManager>();
+
     connect(ui->decksListWidget,
             &QListWidget::itemClicked,
             this,
-            &MainWindow::onDeckClicked);
+            &MainWindow::on_deck_clicked);
 
     connect(ui->cardsListWidget,
             &QListWidget::itemClicked,
             this,
-            &MainWindow::onCardClicked);
+            &MainWindow::on_card_clicked);
 }
 
 MainWindow::~MainWindow()
@@ -27,8 +27,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_loadFileButton_clicked()
-{
+void MainWindow::on_loadFileButton_clicked() {
+
     QString filename = ui->fileNameEdit->text();
 
     if(!manager_->read_file(filename.toStdString())) {
@@ -36,92 +36,82 @@ void MainWindow::on_loadFileButton_clicked()
         return;
     }
 
-    refreshDeckList();
+    refresh_deckList();
     ui->infoLabel->setText("Deck added from file!");
 }
 
-void MainWindow::refreshDeckList()
-{
+void MainWindow::refresh_deckList() {
     ui->decksListWidget->clear();
     vector<string> deck_names = manager_->get_deck_names();
 
-    for(const string& deck_name : deck_names)
-    {
+    for(const auto& deck_name : deck_names) {
         ui->decksListWidget->addItem(QString::fromStdString(deck_name));
-
     }
 }
 
-void MainWindow::showCardWidget(QWidget* widget)
-{
+void MainWindow::clear_cardWidget_area() {
+
     QLayout* layout = ui->cardWidget->layout();
-    QLayoutItem* child;
 
     if (!layout) {
-        layout = new QVBoxLayout(ui->cardWidget);
+        return;
     }
 
-    while ((child = layout->takeAt(0)) != nullptr) {
-        if (child->widget()) {
-            child->widget()->deleteLater();
-        }
-        delete child;
-    }
-
-    layout->addWidget(widget);
-}
-
-void MainWindow::clearCardWidgetArea()
-{
-    QLayout* layout = ui->cardWidget->layout();
-    if (!layout) return;
-
-    while (QLayoutItem* item = layout->takeAt(0))
-    {
+    while (QLayoutItem* item = layout->takeAt(0)) {
         if (item->widget())
             item->widget()->deleteLater();
         delete item;
     }
 }
 
-void MainWindow::onDeckClicked(QListWidgetItem* item)
-{
-    deck_ = manager_->get_deck(item->text().toStdString());
-    refreshCardList();
 
+void MainWindow::set_cardWidget(QWidget* cardWidget) {
+
+    auto layout = ui->cardWidget->layout();
+
+    if (!layout) {
+        layout = new QVBoxLayout(ui->cardWidget);
+    }
+
+    while (auto item = layout->takeAt(0)) {
+        if (item->widget())
+            item->widget()->deleteLater();
+        delete item;
+    }
+
+    layout->addWidget(cardWidget);
 }
 
-void MainWindow::refreshCardList() {
+void MainWindow::on_deck_clicked(QListWidgetItem* item) {
+    deck_ = manager_->get_deck(item->text().toStdString());
+    refresh_cardList();
+}
+
+void MainWindow::refresh_cardList() {
 
     ui->cardsListWidget->clear();
 
-    if (deck_ == nullptr)
-    {
-        clearCardWidgetArea();
+    if (deck_ == nullptr) {
+        clear_cardWidget_area();
         ui->infoLabel->setText("Select the deck to view");
         return;
     }
 
     fields_= deck_->get_fields();
-    auto cards= deck_->get_cards();
+    auto cards = deck_->get_cards();
 
-    for(auto card : cards)
-    {
+    for(const auto& card : cards) {
         Fields return_definitions;
-
         card->get_definitions(*fields_, return_definitions);
-
         QString definition_text = "";
 
-        for (size_t i = 0; i < return_definitions.size(); ++i)
-        {
-            definition_text += QString::fromStdString(return_definitions[i] + " | ");
+        for (const auto& definition : return_definitions) {
+            definition_text += QString::fromStdString(definition + " | ");
         }
 
         QListWidgetItem* item = new QListWidgetItem(definition_text);
         item->setData(Qt::UserRole, card->get_id());
         ui->cardsListWidget->addItem(item);
-
     }
 
     CardWidget* widget = new CardWidget(
@@ -131,18 +121,15 @@ void MainWindow::refreshCardList() {
         ui->cardWidget
         );
 
-    connect(widget, &CardWidget::addCardRequested,
-            this, &MainWindow::onAddCard);
+    connect(widget, &CardWidget::add_card_requested,
+            this, &MainWindow::add_card);
 
-    showCardWidget(widget);
+    set_cardWidget(widget);
 }
 
-
-
-void MainWindow::onCardClicked(QListWidgetItem* item) {
+void MainWindow::on_card_clicked(QListWidgetItem* item) {
 
     unsigned int id = item->data(Qt::UserRole).toUInt();
-
     auto card = deck_->get_card(id);
 
     CardWidget* widget = new CardWidget(
@@ -152,13 +139,13 @@ void MainWindow::onCardClicked(QListWidgetItem* item) {
         ui->cardWidget
         );
 
-    connect(widget, &CardWidget::cardUpdated,
-            this, &MainWindow::onUpdateCard);
-    showCardWidget(widget);
+    connect(widget, &CardWidget::card_updated,
+            this, &MainWindow::update_card);
+    set_cardWidget(widget);
 }
 
-void MainWindow::onAddCard(const Fields& definitions)
-{
+void MainWindow::add_card(const Fields& definitions) {
+
     if (!deck_) {
         ui->infoLabel->setText("Select the deck to view");
         return;
@@ -172,10 +159,10 @@ void MainWindow::onAddCard(const Fields& definitions)
     }
 
     ui->infoLabel->setText("Card added successfully");
-    refreshCardList();
+    refresh_cardList();
 }
 
-void MainWindow::onUpdateCard(const Fields& definitions) {
+void MainWindow::update_card(const Fields& definitions) {
 
     QListWidgetItem* item = ui->cardsListWidget->currentItem();
 
@@ -184,32 +171,33 @@ void MainWindow::onUpdateCard(const Fields& definitions) {
         return;
     }
 
-    unsigned int id = item->data(Qt::UserRole).toUInt();
-    auto card = deck_->get_card(id);
+    auto card = deck_->get_card(item->data(Qt::UserRole).toUInt());
 
     if (!card) {
         ui->infoLabel->setText("Card not found");
         return;
     }
 
-    bool ok = card->add_new_definitions(*fields_, definitions);
-
-    if (!ok) {
+    if (!card->add_new_definitions(*fields_, definitions)) {
         ui->infoLabel->setText("Failed to update card");
         return;
     }
 
     ui->infoLabel->setText("Card updated successfully");
-    refreshCardList();
+    refresh_cardList();
 }
 
-void MainWindow::on_addDeckPushButton_clicked()
-{
+void MainWindow::on_addDeckPushButton_clicked() {
+
     QString new_deck_name = ui->deckNameLineEdit->text();
     QString input_fields = ui->deckFieldsLineEdit->text();
 
-    if (input_fields.trimmed().isEmpty())
-    {
+    if (new_deck_name.trimmed().isEmpty()) {
+        ui->infoLabel->setText("Input the deck name!");
+        return;
+    }
+
+    if (input_fields.trimmed().isEmpty()) {
         ui->infoLabel->setText("Input the deck fields!");
         return;
     }
@@ -222,13 +210,13 @@ void MainWindow::on_addDeckPushButton_clicked()
     }
 
     manager_->add_deck(new_deck_name.toStdString(), deck_fields);
-    refreshDeckList();
+    refresh_deckList();
     ui->infoLabel->setText("Deck " + new_deck_name + " added!");
 }
 
 
-void MainWindow::on_removeDeckPushButton_clicked()
-{
+void MainWindow::on_removeDeckPushButton_clicked() {
+
     QListWidgetItem* item = ui->decksListWidget->currentItem();
 
     if (item == nullptr)
@@ -237,21 +225,17 @@ void MainWindow::on_removeDeckPushButton_clicked()
         return;
     }
 
-    QString deck_name_q = ui->decksListWidget->currentItem()->text();
-    string deck_name = deck_name_q.toStdString();
+    string deck_name = item->text().toStdString();
 
     if (!manager_->remove_deck(deck_name)) {
         ui->infoLabel->setText("Error removing deck");
         return;
     }
 
-    refreshDeckList();
-
+    refresh_deckList();
     ui->cardsListWidget->clear();
-
-    ui->infoLabel->setText("Deck " + deck_name_q + " removed!");
-
-    clearCardWidgetArea();
+    ui->infoLabel->setText("Deck " + QString::fromStdString(deck_name) + " removed!");
+    clear_cardWidget_area();
 }
 
 
@@ -259,31 +243,26 @@ void MainWindow::on_removeCardPushButton_clicked()
 {
     QListWidgetItem* item = ui->cardsListWidget->currentItem();
 
-    if (item == nullptr)
-    {
+    if (item == nullptr) {
         ui->infoLabel->setText("Select the card to be removed from the list!");
         return;
     }
 
-    unsigned int card_id =
-        item->data(Qt::UserRole).toUInt();
-
-    QString deck_name_q = ui->decksListWidget->currentItem()->text();
-    string deck_name = deck_name_q.toStdString();
-
+    unsigned int card_id = item->data(Qt::UserRole).toUInt();
+    string deck_name = ui->decksListWidget->currentItem()->text().toStdString();
 
     if (!manager_->remove_card(deck_name, card_id)) {
         return;
         ui->infoLabel->setText("Error removing card!");
     }
 
-    refreshCardList();
+    refresh_cardList();
     ui->infoLabel->setText("Card number " + QString::number(card_id) + " removed!");
 }
 
 
-void MainWindow::on_closePushButton_clicked()
-{
+void MainWindow::on_closePushButton_clicked() {
+
     QApplication::quit();
 }
 
